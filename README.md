@@ -29,7 +29,7 @@
 
 ## Technology Stack
 
-- **Frontend**: HTML, CSS, JavaScript, React.js ,React Native
+- **Frontend**: HTML, CSS, JavaScript, React.js ,React-Bootstrap
 - **Backend**: Node.js, Express.js Firebase
 - **Database**: MySQL
 - **Authentication**: JWT (JSON Web Tokens) / OAuth

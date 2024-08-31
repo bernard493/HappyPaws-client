@@ -1,11 +1,8 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.scss";
+import Layouts from "./StackNavigation/Layouts/Layouts";
 
 function App() {
-  return (
-   
-   <h1>Happy Paws</h1>
-  );
+  return <Layouts />;
 }
 
 export default App;

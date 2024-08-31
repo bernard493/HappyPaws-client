@@ -1,0 +1,61 @@
+@use "variables" as *;
+
+.typography {
+  &__heading-1 {
+    font-family: $font-primary;
+    font-weight: $font-weight-bold;
+    font-size: $font-size-heading-1;
+    line-height: $line-height-heading-1;
+  }
+
+  &__heading-2 {
+    font-family: $font-primary;
+    font-weight: $font-weight-bold;
+    font-size: $font-size-heading-2;
+    line-height: $line-height-heading-2;
+  }
+
+  &__title-1 {
+    font-family: $font-primary;
+    font-weight: $font-weight-bold;
+    font-size: $font-size-title-1;
+    line-height: $line-height-title-1;
+  }
+
+  &__title-2 {
+    font-family: $font-primary;
+    font-weight: $font-weight-bold;
+    font-size: $font-size-title-2;
+    line-height: $line-height-title-2;
+  }
+
+  &__body {
+    font-family: $font-primary;
+    font-weight: $font-weight-regular;
+    font-size: $font-size-body;
+    line-height: $line-height-body;
+  }
+
+  &__menu {
+    font-family: $font-primary;
+    font-weight: $font-weight-regular;
+    font-size: $font-size-menu;
+    line-height: $line-height-menu;
+    text-transform: uppercase;
+  }
+
+  &__menu-small {
+    font-family: $font-primary;
+    font-weight: $font-weight-regular;
+    font-size: $font-size-menu-small;
+    line-height: $line-height-menu-small;
+    text-transform: uppercase;
+  }
+
+  &__footer {
+    font-family: $font-primary;
+    font-weight: $font-weight-regular;
+    font-size: $font-size-footer;
+    line-height: $line-height-footer;
+  }
+}
