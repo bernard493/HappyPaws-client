@@ -1,8 +1,13 @@
-import "./App.scss";
+import "./App.css";
 import Layouts from "./StackNavigation/Layouts/Layouts";
+import { ChakraProvider } from '@chakra-ui/react'
 
 function App() {
-  return <Layouts />;
+  return (
+    <ChakraProvider>
+      <Layouts />
+    </ChakraProvider>
+  );
 }
 
 export default App;
