@@ -1,0 +1,25 @@
+.searchInput__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 1rem;
+  padding: 0 1rem;
+  background-color: #EEF2F5;
+}
+
+.searchInput__container input[type="text"] {
+  padding: 0.7rem;
+  font-size: 16px;
+  width: 300px;
+  margin-right: 10px;
+  background-color: #EEF2F5;
+  border: none;
+  &:focus{
+    outline: none;
+  }
+  &::placeholder{
+    color: #666;
+  }
+}

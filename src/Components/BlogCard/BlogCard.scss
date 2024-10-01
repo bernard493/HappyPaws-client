@@ -1,0 +1,9 @@
+@use "../../styles/partials/mixin" as *;
+@use "../../styles/partials/variables" as *;
+
+.blog {
+  &__img {
+    width: 50rem;
+    height: 20rem;
+  }
+}
