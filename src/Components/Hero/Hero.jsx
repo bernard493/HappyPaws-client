@@ -18,9 +18,8 @@ const Hero = () => {
     // navigate to pets dashboard with searchInput
     if (!searchInput) return setError(true);
     setIsDisabled(true);
-    navigate("/pet-matches", {
-      state: { searchInput },
-    });
+    const queryParams =  encodeURIComponent(searchInput).toString();
+    navigate(`/pet-matches?search=${queryParams}`);
     setIsDisabled(false);
   };
 
