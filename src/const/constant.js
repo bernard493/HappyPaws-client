@@ -51,36 +51,47 @@ const successfulAdoptedPetsBlogPost = [
     author: "Sara Lee",
     image: img3, // Fill with image URL later
   },
-  {
-    id: 4,
-    title: "Charlie: The Dog Who Found His Family",
-    date: "2023-05-30",
-    content:
-      "Charlie, a 5-year-old Dachshund, waited patiently at the shelter for a year. His persistence paid off when he finally found a family that truly understands him.",
-    author: "Michael Brown",
-    image: img4, // Fill with image URL later
-  },
-  {
-    id: 5,
-    title: "Rocky's Happy Ending: A Success Story",
-    date: "2023-04-12",
-    content:
-      "Rocky, a playful Pit Bull, was abandoned but never lost hope. After being featured on a local adoption event, he found a loving home where he’s cherished every day.",
-    author: "Lisa White",
-    image: img3, // Fill with image URL later
-  },
-  {
-    id: 6,
-    title: "Daisy's New Life: A Tale of Resilience",
-    date: "2023-03-08",
-    content:
-      "Daisy, a sweet Labrador mix, spent months in the shelter. Thanks to a dedicated foster, she learned to trust again and was adopted into a family that adores her.",
-    author: "John Green",
-    image: img2, // Fill with image URL later
-  },
+  // {
+  //   id: 4,
+  //   title: "Charlie: The Dog Who Found His Family",
+  //   date: "2023-05-30",
+  //   content:
+  //     "Charlie, a 5-year-old Dachshund, waited patiently at the shelter for a year. His persistence paid off when he finally found a family that truly understands him.",
+  //   author: "Michael Brown",
+  //   image: img4, // Fill with image URL later
+  // },
+  // {
+  //   id: 5,
+  //   title: "Rocky's Happy Ending: A Success Story",
+  //   date: "2023-04-12",
+  //   content:
+  //     "Rocky, a playful Pit Bull, was abandoned but never lost hope. After being featured on a local adoption event, he found a loving home where he’s cherished every day.",
+  //   author: "Lisa White",
+  //   image: img3, // Fill with image URL later
+  // },
+  // {
+  //   id: 6,
+  //   title: "Daisy's New Life: A Tale of Resilience",
+  //   date: "2023-03-08",
+  //   content:
+  //     "Daisy, a sweet Labrador mix, spent months in the shelter. Thanks to a dedicated foster, she learned to trust again and was adopted into a family that adores her.",
+  //   author: "John Green",
+  //   image: img2, // Fill with image URL later
+  // },
 ];
+
+
+const heroTexts = [
+  "Find Your Perfect Pet Companion! Start your journey towards finding a new furry friend today!",
+  "Adopt a Pet, Change a Life! Search through thousands of adoptable pets looking for a loving home.",
+  "Your New Best Friend is Just a Click Away! ",
+  "Bringing Pets and Families Together! Discover pets in need of loving homes.",
+  " Create Lasting Memories! Start a search for adoptable pets  today.",
+];
+
 
 module.exports = {
   responsive,
   successfulAdoptedPetsBlogPost,
+  heroTexts
 };

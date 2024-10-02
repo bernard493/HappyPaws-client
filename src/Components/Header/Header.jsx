@@ -11,7 +11,9 @@ const Header = () => {
     <>
       <nav className="Navbar">
         <div className="Navbar__logo-container">
-          <h1 className="Navbar__logo-container--text">HAPPY PAWS!</h1>
+          <Link to="/" >
+            <h1 className="Navbar__logo-container--text">HAPPY PAWS!</h1>
+          </Link>
         </div>
         <div className="Navbar__links-container">
           <Link to="/about-us">

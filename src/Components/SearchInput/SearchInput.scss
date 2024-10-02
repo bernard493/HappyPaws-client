@@ -6,7 +6,7 @@
   border: 1px solid #ccc;
   border-radius: 1rem;
   padding: 0 1rem;
-  background-color: #EEF2F5;
+  background-color: #eef2f5;
 }
 
 .searchInput__container input[type="text"] {
@@ -14,12 +14,21 @@
   font-size: 16px;
   width: 300px;
   margin-right: 10px;
-  background-color: #EEF2F5;
+  background-color: #eef2f5;
   border: none;
-  &:focus{
+  &:focus {
     outline: none;
   }
-  &::placeholder{
+  &::placeholder {
     color: #666;
+  }
+}
+
+.error {
+  color: red;
+  font-size: small;
+  padding-top: 0.2rem;
+  &__border {
+    border: 1px solid red;
   }
 }

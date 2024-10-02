@@ -1,37 +1,55 @@
 import React from "react";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
+import Slider from "react-slick"; // import "react-multi-carousel/lib/styles.css";
 import { responsive } from "../../const/constant";
 import BlogCard from "../BlogCard/BlogCard";
 
+const BlogCarousel = ({ blogs }) => {
+  var settings = {
+    className: "center",
+    centerMode: true,
+    infinite: true,
+    centerPadding: "100px",
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    speed: 2000,
+    autoplaySpeed: 2000,
+    cssEase: "linear",
+    pauseOnHover: true,
 
-const BlogCarousel = ({blogs}) => {
-  return (
-    <Carousel
-      swipeable={true}
-      draggable={true}
-      showDots={false}
-      responsive={responsive}
-      ssr={true} // means to render carousel on server-side.
-      infinite={true}
-      autoPlay={ true }
-      autoPlaySpeed={3000}
-      keyBoardControl={true}
-      customTransition="all .5"
-      transitionDuration={7000}
-      containerClass="carousel-container"
-      removeArrowOnDeviceType={["tablet", "mobile"]}
-    //   deviceType={this.props.deviceType}
-      dotListClass="custom-dot-list-style"
-      itemClass="carousel-item-padding-40-px"
-    >
+    responsive: [
       {
-        blogs.map((blog, index) => {
-            return (
-                <BlogCard blog={blog}/>)
-      })
-    }
-    </Carousel>
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+  return (
+    <Slider {...settings}  >
+      {blogs.map((blog, index) => {
+        return <BlogCard blog={blog} />;
+      })}
+    </Slider>
   );
 };
 
