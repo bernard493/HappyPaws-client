@@ -4,6 +4,7 @@ import SearchInput from "../SearchInput/SearchInput";
 import BlogCarousel from "../BlogCarousel/BlogCarousel";
 import { successfulAdoptedPetsBlogPost, heroTexts } from "../../const/constant";
 import { useNavigate } from "react-router-dom";
+import Button from "../Button/Button";
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const Hero = () => {
     // navigate to pets dashboard with searchInput
     if (!searchInput) return setError(true);
     setIsDisabled(true);
-    const queryParams =  encodeURIComponent(searchInput).toString();
+    const queryParams = encodeURIComponent(searchInput).toString();
     navigate(`/pet-matches?search=${queryParams}`);
     setIsDisabled(false);
   };
@@ -37,13 +38,12 @@ const Hero = () => {
               placeholder="I'm Looking for a pet that’s great with..."
             />
           </div>
-          <button
-            onClick={handleSearchNavigation}
-            className="Hero__input--btn "
-            disabled={isDisabled}
-          >
-            {!isDisabled ? " Meet Your Pet Pall" : "Finding Pet Pall... "}
-          </button>
+          <Button
+            handleButtonClick={handleSearchNavigation}
+            isDisabledState={isDisabled}
+            notDisabledText={"Meet Your Pet Pall"}
+            isDisabledText={"Finding Pet Pall..."}
+          />
         </div>
       </section>
       <section className="Hero__blog--container">
