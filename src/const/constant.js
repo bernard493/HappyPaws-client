@@ -3,6 +3,10 @@ const img2 = require("../assets/demoIMGs/dog-5753302_1280.jpg");
 const img3 = require("../assets/demoIMGs/woman-6687637_1280.jpg");
 const img4 = require("../assets/demoIMGs/woman-6986050_1280.jpg");
 
+// Demo Pets Imgs will be romoved later
+const pet1img = require("../assets/demoIMGs/cat-8198720_1280.jpg");
+const pet2img = require("../assets/demoIMGs/dog-7691238_1280.jpg");
+const pet3img = require("../assets/demoIMGs/german-shorthaired-pointer-8655457_1280.jpg");
 const responsive = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
@@ -80,7 +84,6 @@ const successfulAdoptedPetsBlogPost = [
   // },
 ];
 
-
 const heroTexts = [
   "Find Your Perfect Pet Companion! Start your journey towards finding a new furry friend today!",
   "Adopt a Pet, Change a Life! Search through thousands of adoptable pets looking for a loving home.",
@@ -89,9 +92,68 @@ const heroTexts = [
   " Create Lasting Memories! Start a search for adoptable pets  today.",
 ];
 
+const petsDemoDate = [
+  {
+    id: "13fwsqwfwf",
+    name: "Pet1",
+    age: 2,
+    breed: "Breed1",
+    gender: "Male",
+    image: pet1img,
+    favorite: true,
+    size: "Small",
+    description:
+      "The longest word in any of the major English language dictionaries is pneumonoultramicroscopicsilicovolcanoconiosis, a word that refers to a lung disease",
+  },
+  {
+    id: "13fwwwsqwfwf",
+    name: "Pet1",
+    age: 2,
+    breed: "Breed1",
+    gender: "Male",
+    image: pet2img,
+    favorite: true,
+    size: "Small",
+    description: "Pet1 is a cute pet",
+  },
+  {
+    id: "jhv676t17g1",
+    name: "Pet1",
+    age: 2,
+    breed: "Breed1",
+    gender: "Male",
+    image: pet3img,
+    favorite: false,
+    size: "Small",
+    description: "Pet1 is a cute pet",
+  },
+  {
+    id: "ih7iy87",
+    name: "Pet1",
+    age: 2,
+    breed: "Breed1",
+    image: pet1img,
+    gender: "Male",
+    favorite: true,
+    size: "Small",
+    description: "Pet1 is a cute pet",
+  },
+  {
+    id: "786tgu7g7g",
+    name: "Pet1",
+    age: 2,
+    breed: "Breed1",
+    image: pet2img,
+    gender: "Male",
+    favorite: false,
+    size: "Small",
+    description: "Pet1 is a cute pet",
+  },
+];
 
 module.exports = {
   responsive,
   successfulAdoptedPetsBlogPost,
-  heroTexts
+  heroTexts,
+  petsDemoDate,
 };

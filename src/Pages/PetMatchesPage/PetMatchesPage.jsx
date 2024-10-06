@@ -5,75 +5,10 @@ import { useDisclosure } from "@chakra-ui/react";
 import PetDetailsDrawer from "../../Components/PetDetailsDrawer/PetDetailsDrawer";
 import SearchInput from "../../Components/SearchInput/SearchInput";
 import Button from "../../Components/Button/Button";
-import { heroTexts } from "../../const/constant";
+import { heroTexts, petsDemoDate } from "../../const/constant";
 import PetCard from "../../Components/PetCard/PetCard";
-import ReactPaginate from "react-paginate";
-
-
-// Demo Pets Imgs will be romoved later
-import pet1img from "../../assets/demoIMGs/cat-8198720_1280.jpg";
-import pet2img from "../../assets/demoIMGs/dog-7691238_1280.jpg";
-import pet3img from "../../assets/demoIMGs/german-shorthaired-pointer-8655457_1280.jpg";
 import Paginate from "../../Components/ReactPaginate/ReactPaginate";
 
-const petsDemoDate = [
-  {
-    id: "13fwsqwfwf",
-    name: "Pet1",
-    age: 2,
-    breed: "Breed1",
-    gender: "Male",
-    image: pet1img,
-    favorite: true,
-    size: "Small",
-    description:
-      "The longest word in any of the major English language dictionaries is pneumonoultramicroscopicsilicovolcanoconiosis, a word that refers to a lung disease",
-  },
-  {
-    id: "13fwwwsqwfwf",
-    name: "Pet1",
-    age: 2,
-    breed: "Breed1",
-    gender: "Male",
-    image: pet2img,
-    favorite: true,
-    size: "Small",
-    description: "Pet1 is a cute pet",
-  },
-  {
-    id: "jhv676t17g1",
-    name: "Pet1",
-    age: 2,
-    breed: "Breed1",
-    gender: "Male",
-    image: pet3img,
-    favorite: false,
-    size: "Small",
-    description: "Pet1 is a cute pet",
-  },
-  {
-    id: "ih7iy87",
-    name: "Pet1",
-    age: 2,
-    breed: "Breed1",
-    image: pet1img,
-    gender: "Male",
-    favorite: true,
-    size: "Small",
-    description: "Pet1 is a cute pet",
-  },
-  {
-    id: "786tgu7g7g",
-    name: "Pet1",
-    age: 2,
-    breed: "Breed1",
-    image: pet2img,
-    gender: "Male",
-    favorite: false,
-    size: "Small",
-    description: "Pet1 is a cute pet",
-  },
-];
 
 const PetMatchesPage = () => {
   const location = useLocation();
