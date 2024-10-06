@@ -10,6 +10,8 @@ const PetCard = ({ pet, petId, onOpen }) => {
   const handleSelectedPet = (petId) => {
     onOpen(petId);
   };
+
+
   return (
     <div className="petCard">
       <div className="petCard__cont">
@@ -25,26 +27,26 @@ const PetCard = ({ pet, petId, onOpen }) => {
           </div>
           <div className="petCard__info--location">
             <CiLocationOn />
-            <p className="petCard__location">london, UK</p>
+            <p className="petCard__info--text">london, UK</p>
           </div>
           <div className="petCard__info--container">
-            <p className="petCard__name">
+            <p className="petCard__info--text">
               Gender:{"  "}
               <span className="petCard__info--container-span">
                 {pet.gender}
               </span>
             </p>
-            <p className="petCard__name">
+            <p className="petCard__info--text">
               Age:{"  "}
               <span className="petCard__info--container-span">{pet.age}</span>
             </p>
           </div>
           <div className="petCard__info--container">
-            <p className="petCard__name">
+            <p className="petCard__info--text">
               Breed:{"  "}
               <span className="petCard__info--container-span">{pet.breed}</span>
             </p>
-            <p className="petCard__name">
+            <p className="petCard__info--text">
               Size:{"  "}
               <span className="petCard__info--container-span">{pet.size}</span>
             </p>
