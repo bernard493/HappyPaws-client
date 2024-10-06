@@ -1,0 +1,19 @@
+@use "../../styles/partials/mixin" as *;
+@use "../../styles/partials/variables" as *;
+
+.Btn {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  background-color: #070808;
+  color: #fff;
+  @include tablet {
+    padding: 0.7rem 2rem;
+    width: 13rem;
+
+  }
+  &:hover {
+    background-color: #292727;
+  }
+}

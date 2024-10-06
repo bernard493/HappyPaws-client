@@ -1,0 +1,49 @@
+@use "../../styles/partials/mixin" as *;
+@use "../../styles/partials/variables" as *;
+
+.Hero {
+  &__text--container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+  &__title {
+    font-size: 1rem;
+    font-weight: normal;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+
+  &__text {
+    text-wrap: wrap;
+    font-weight: bold;
+    line-height: 1.2;
+    font-size: 2rem;
+
+    @include tablet {
+      font-size: 40px;
+      color: #000;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  
+  &__input__section--container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+    margin-top: 2rem;
+
+    @include tablet {
+      flex-direction: row;
+      gap: 2rem;
+    }
+  }
+
+}

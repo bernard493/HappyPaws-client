@@ -1,11 +1,11 @@
 import React from "react";
-import { Button } from'@chakra-ui/react';
+import Hero from "../../Components/Hero/Hero";
 
 const LandingPage = () => {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-    </div>
+    <section className="LandingPage__container">
+      <Hero />
+    </section>
   );
 };
 
