@@ -9,16 +9,16 @@ import { heroTexts, petsDemoDate } from "../../const/constant";
 import PetCard from "../../Components/PetCard/PetCard";
 import Paginate from "../../Components/ReactPaginate/ReactPaginate";
 
-
 const PetMatchesPage = () => {
   const location = useLocation();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [searchInput, setSearchInput] = useState("");
   const [heroText, setHeroText] = useState(heroTexts);
   const [isDisabled, setIsDisabled] = useState(false);
   const [allPets, setAllPets] = useState(petsDemoDate);
   const [itemsPerPage, setItemsPerPage] = useState(20);
+  const [selectedPetID, setSelectedPetID] = useState("");
   const [error, setError] = useState(false);
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [itemOffset, setItemOffset] = useState(0);
   const btnRef = React.useRef();
   const queryParams = new URLSearchParams(location.search);
@@ -27,6 +27,7 @@ const PetMatchesPage = () => {
   //   get get selected pet and open drawer
   const handleOpenPetDetailsDrawer = (petId) => {
     onOpen();
+    setSelectedPetID(petId);
     console.log("pet id ", petId);
   };
 
@@ -38,11 +39,6 @@ const PetMatchesPage = () => {
     setIsDisabled(false);
   };
 
-  // Paginate
-
-
-
-  
   const endOffset = itemOffset + itemsPerPage;
   const currentPetItems = allPets.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(allPets.length / itemsPerPage);
@@ -52,8 +48,6 @@ const PetMatchesPage = () => {
     const newOffset = (event.selected * itemsPerPage) % allPets.length;
     setItemOffset(newOffset);
   };
-
-
 
   return (
     <section>
@@ -89,14 +83,18 @@ const PetMatchesPage = () => {
             />
           );
         })}
-
       </section>
-        <div className="PetMatches__petsCard--container__paginate">
-          <Paginate handlePageClick={handlePageClick} pageCount={pageCount} />
-        </div>
+      <div className="PetMatches__petsCard--container__paginate">
+        <Paginate handlePageClick={handlePageClick} pageCount={pageCount} />
+      </div>
 
       {/* Display Selected Pet Details */}
-      <PetDetailsDrawer isOpen={isOpen} onClose={onClose} btnRef={btnRef} />
+      <PetDetailsDrawer
+        isOpen={isOpen}
+        onClose={onClose}
+        btnRef={btnRef}
+        selectedPetID={selectedPetID}
+      />
     </section>
   );
 };

@@ -1,0 +1,36 @@
+@use "../../styles/partials/mixin" as *;
+@use "../../styles/partials/variables" as *;
+
+.petdeails__header {
+  &--container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 2rem;
+  }
+
+  &__share-CTA__container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap:1rem
+  }
+  &__share-CTA{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &--text{
+    font-size: 0.8rem;
+    color: $color-neutral-light;
+  }
+}
+
+.petdeails__details---img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    
+}
