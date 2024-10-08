@@ -1,7 +1,7 @@
 @use "../../styles/partials/mixin" as *;
 @use "../../styles/partials/variables" as *;
 
-.petdeails__header {
+.pet__Details__header {
   &--container {
     display: flex;
     justify-content: space-between;
@@ -20,6 +20,12 @@
     justify-content: space-between;
     align-items: center;
     gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.3rem 0.5rem;
+    border-radius: 1rem;
+    &:hover{
+      background-color: aliceblue;
+    }
   }
 
   &--text{
@@ -28,9 +34,15 @@
   }
 }
 
-.petdeails__details---img{
+.pet__Details--img{
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 0.5rem;
     
+}
+
+
+.pet__Details__container{
+  padding-top: 3rem;
 }

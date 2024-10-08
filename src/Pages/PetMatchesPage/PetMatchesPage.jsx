@@ -11,34 +11,23 @@ import Paginate from "../../Components/ReactPaginate/ReactPaginate";
 
 const PetMatchesPage = () => {
   const location = useLocation();
+  const btnRef = React.useRef();
+  const queryParams = new URLSearchParams(location.search);
+  const userInput = decodeURIComponent(queryParams.get("search"));
   const { isOpen, onOpen, onClose } = useDisclosure();
+
   const [searchInput, setSearchInput] = useState("");
   const [heroText, setHeroText] = useState(heroTexts);
   const [isDisabled, setIsDisabled] = useState(false);
   const [allPets, setAllPets] = useState(petsDemoDate);
   const [itemsPerPage, setItemsPerPage] = useState(20);
-  const [selectedPetID, setSelectedPetID] = useState("");
+  // const [selectedPetID, setSelectedPetID] = useState("");
   const [error, setError] = useState(false);
   const [itemOffset, setItemOffset] = useState(0);
-  const btnRef = React.useRef();
-  const queryParams = new URLSearchParams(location.search);
-  const userInput = decodeURIComponent(queryParams.get("search"));
+  const [selectedPetDetails, setSelectedPetDetails] = useState(null);
+  const [isLoadingPetDetails, setIsLoadingPetDetails] = useState(false);
 
-  //   get get selected pet and open drawer
-  const handleOpenPetDetailsDrawer = (petId) => {
-    onOpen();
-    setSelectedPetID(petId);
-    console.log("pet id ", petId);
-  };
-
-  const handleSearchNavigation = () => {
-    // navigate to pets dashboard with searchInput
-    if (!searchInput) return setError(true);
-    setIsDisabled(true);
-    // Make Api call with new search input
-    setIsDisabled(false);
-  };
-
+  // Pagenate
   const endOffset = itemOffset + itemsPerPage;
   const currentPetItems = allPets.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(allPets.length / itemsPerPage);
@@ -47,6 +36,40 @@ const PetMatchesPage = () => {
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % allPets.length;
     setItemOffset(newOffset);
+  };
+
+  // API Call to get pet details
+
+  const fetchPetDetails = async (petId) => {
+    try {
+      setIsLoadingPetDetails(true);
+      // const { status, data } = await axios.get("");
+      const pet = petsDemoDate.find((eachPet) => {
+        const { id } = eachPet;
+        return id === petId;
+      });
+      console.log("pet ", pet);
+      setSelectedPetDetails(pet);
+      console.log("petsDemoDate", petsDemoDate);
+    } catch {
+      console.log("Error fetching pet details");
+    } finally {
+      setIsLoadingPetDetails(false);
+    }
+  };
+
+  //   get get selected pet and open drawer
+  const handleOpenPetDetailsDrawer = (petId) => {
+    onOpen();
+    fetchPetDetails(petId);
+    console.log("pet id ", petId);
+  };
+
+  const handleSearchNewSearchRequest = () => {
+    if (!searchInput) return setError(true);
+    setIsDisabled(true);
+    // Make Api call with new search input
+    setIsDisabled(false);
   };
 
   return (
@@ -63,7 +86,7 @@ const PetMatchesPage = () => {
             />
           </div>
           <Button
-            handleButtonClick={handleSearchNavigation}
+            handleButtonClick={handleSearchNewSearchRequest}
             isDisabledState={isDisabled}
             notDisabledText={"Meet Your Pet Pall"}
             isDisabledText={"Finding Pet Pall..."}
@@ -93,7 +116,8 @@ const PetMatchesPage = () => {
         isOpen={isOpen}
         onClose={onClose}
         btnRef={btnRef}
-        selectedPetID={selectedPetID}
+        petDetails={selectedPetDetails}
+        isLoading={isLoadingPetDetails}
       />
     </section>
   );
