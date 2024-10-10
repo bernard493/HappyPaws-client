@@ -1,0 +1,85 @@
+@use "../../styles/partials/mixin" as *;
+@use "../../styles/partials/variables" as *;
+
+.adoption-request-page {
+  padding: 2rem 1rem;
+  @include tablet {
+    padding: 2rem 1rem;
+  }
+  @include desktop {
+    padding: 4rem;
+  }
+  &__header-text{
+    text-wrap: wrap;
+    font-weight: bold;
+    line-height: 1.2;
+    font-size: 1.5rem;
+    // align-items: center;
+    text-align: center;
+
+    @include tablet {
+      font-size: 2rem;
+      color: #000;
+      margin-bottom: 1.5rem;
+    }
+  }
+}
+.adoption__container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem 0;
+  @include tablet {
+    flex-direction: row;
+  }
+
+  &--shelter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.adoption__pet--container {
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+
+  &--shelter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.adoption__pet--image {
+  width: 100%;
+  height: 30vh;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  @include tablet {
+    height: 20vh;
+    width: 20vw;
+  }
+  @include desktop {
+    // height: 20vh;
+  }
+}
+
+.adoption__pet__information {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  &--container {
+    padding-top: 2rem;
+  }
+}
+
+.adoption__form--container {
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}

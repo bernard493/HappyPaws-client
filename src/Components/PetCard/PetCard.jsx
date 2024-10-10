@@ -15,7 +15,7 @@ const PetCard = ({ pet, petId, onOpen }) => {
   return (
     <div className="petCard">
       <div className="petCard__cont">
-        <img src={pet.image} alt={pet.name} className="petCard__img" />
+        <img src={pet.image[0]} alt={pet.name} className="petCard__img" />
         <div className="petCard__info">
           <div className="petCard__info--name-container">
             <h2 className="petCard__info--name">{pet.name}</h2>

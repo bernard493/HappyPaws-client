@@ -5,7 +5,7 @@ const img4 = require("../assets/demoIMGs/woman-6986050_1280.jpg");
 
 // Demo Pets Imgs will be romoved later
 const pet1img = require("../assets/demoIMGs/cat-8198720_1280.jpg");
-const pet2img = require("../assets/demoIMGs/dog-7691238_1280.jpg");
+const pet2img = require("../assets/demoIMGs/dog-8421955_1280.jpg");
 const pet3img = require("../assets/demoIMGs/german-shorthaired-pointer-8655457_1280.jpg");
 const responsive = {
   superLargeDesktop: {
@@ -30,7 +30,7 @@ const responsive = {
 const successfulAdoptedPetsBlogPost = [
   {
     id: 1,
-    title: "Meet Bella: From Shelter to Forever Home",
+    title: "Meet Bella: From shelter to Forever Home",
     date: "2023-08-15",
     content:
       "Bella, a 3-year-old Golden Retriever, found her forever home after being at the shelter for six months. Her new family couldn’t be happier to have her as part of their lives!",
@@ -99,9 +99,18 @@ const petsDemoDate = [
     age: 2,
     breed: "Breed1",
     gender: "Male",
-    image: pet1img,
+    image: [pet2img, img4, pet1img, pet2img],
     favorite: true,
     size: "Small",
+    vaccineStatus: true,
+    price: 202,
+    shelter: {
+      name: "Loves shelter",
+      address: "Greater London, UK",
+      image:
+        "https://cdn.pixabay.com/photo/2023/12/04/17/24/evening-8429871_1280.jpg",
+      status: true,
+    },
     description:
       "The longest word in any of the major English language dictionaries is pneumonoultramicroscopicsilicovolcanoconiosis, a word that refers to a lung disease",
   },
@@ -111,10 +120,19 @@ const petsDemoDate = [
     age: 2,
     breed: "Breed1",
     gender: "Male",
-    image: pet2img,
+    image: [pet1img, pet2img, img3, pet2img],
     favorite: true,
     size: "Small",
     description: "Pet1 is a cute pet",
+    vaccineStatus: true,
+    price: 202,
+    shelter: {
+      name: "Loves shelter",
+      address: "Greater London, UK",
+      image:
+        "https://cdn.pixabay.com/photo/2023/12/04/17/24/evening-8429871_1280.jpg",
+      status: false,
+    },
   },
   {
     id: "jhv676t17g1",
@@ -122,32 +140,59 @@ const petsDemoDate = [
     age: 2,
     breed: "Breed1",
     gender: "Male",
-    image: pet3img,
+    image: [pet3img, pet2img, pet2img, img4],
     favorite: false,
     size: "Small",
     description: "Pet1 is a cute pet",
+    vaccineStatus: true,
+    price: 202,
+    shelter: {
+      name: "Care shelter",
+      address: "Greater London, UK",
+      image:
+        "https://cdn.pixabay.com/photo/2023/12/04/17/24/evening-8429871_1280.jpg",
+      status: true,
+    },
   },
   {
     id: "ih7iy87",
     name: "Pet1",
     age: 2,
     breed: "Breed1",
-    image: pet1img,
+    image: [img4, pet2img, pet2img, pet2img],
     gender: "Male",
     favorite: true,
     size: "Small",
     description: "Pet1 is a cute pet",
+    price: 202,
+    vaccineStatus: true,
+    shelter: {
+      name: "Good shelter",
+      address: "Greater London, UK",
+      image:
+        "https://cdn.pixabay.com/photo/2023/12/04/17/24/evening-8429871_1280.jpg",
+      status: true,
+    },
   },
   {
     id: "786tgu7g7g",
     name: "Pet1",
     age: 2,
     breed: "Breed1",
-    image: pet2img,
+    image: [img3, pet1img, pet2img, pet2img],
     gender: "Male",
     favorite: false,
     size: "Small",
     description: "Pet1 is a cute pet",
+    vaccineStatus: true,
+    price: 202,
+    shelter: {
+      name: "Ben shelter",
+      address: "Greater London, UK",
+      image:
+        " https://cdn.pixabay.com/photo/2023/12/04/17/24/evening-8429871_1280.jpg",
+      status: false,
+    },
   },
 ];
 
