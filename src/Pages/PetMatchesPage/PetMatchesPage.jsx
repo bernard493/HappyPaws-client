@@ -21,7 +21,6 @@ const PetMatchesPage = () => {
   const [isDisabled, setIsDisabled] = useState(false);
   const [allPets, setAllPets] = useState(petsDemoDate);
   const [itemsPerPage, setItemsPerPage] = useState(20);
-  // const [selectedPetID, setSelectedPetID] = useState("");
   const [error, setError] = useState(false);
   const [itemOffset, setItemOffset] = useState(0);
   const [selectedPetDetails, setSelectedPetDetails] = useState(null);
@@ -48,9 +47,7 @@ const PetMatchesPage = () => {
         const { id } = eachPet;
         return id === petId;
       });
-      console.log("pet ", pet);
       setSelectedPetDetails(pet);
-      console.log("petsDemoDate", petsDemoDate);
     } catch {
       console.log("Error fetching pet details");
     } finally {
@@ -62,7 +59,6 @@ const PetMatchesPage = () => {
   const handleOpenPetDetailsDrawer = (petId) => {
     onOpen();
     fetchPetDetails(petId);
-    console.log("pet id ", petId);
   };
 
   const handleSearchNewSearchRequest = () => {

@@ -102,12 +102,14 @@ const petsDemoDate = [
     image: [pet2img, img4, pet1img, pet2img],
     favorite: true,
     size: "Small",
-    shelter:{
-      name:"Loves shelter",
-     address :"Greater London, UK",
-     image :"https://cdn.pixabay.com/photo/2023/12/04/17/24/evening-8429871_1280.jpg",
-     status: true,
-
+    vaccineStatus: true,
+    price: 202,
+    shelter: {
+      name: "Loves shelter",
+      address: "Greater London, UK",
+      image:
+        "https://cdn.pixabay.com/photo/2023/12/04/17/24/evening-8429871_1280.jpg",
+      status: true,
     },
     description:
       "The longest word in any of the major English language dictionaries is pneumonoultramicroscopicsilicovolcanoconiosis, a word that refers to a lung disease",
@@ -122,13 +124,15 @@ const petsDemoDate = [
     favorite: true,
     size: "Small",
     description: "Pet1 is a cute pet",
-    shelter:{
-      name:"Loves shelter",
-     address :"Greater London, UK",
-     image :"https://cdn.pixabay.com/photo/2023/12/04/17/24/evening-8429871_1280.jpg",
-     status: false,
-
-    }
+    vaccineStatus: true,
+    price: 202,
+    shelter: {
+      name: "Loves shelter",
+      address: "Greater London, UK",
+      image:
+        "https://cdn.pixabay.com/photo/2023/12/04/17/24/evening-8429871_1280.jpg",
+      status: false,
+    },
   },
   {
     id: "jhv676t17g1",
@@ -140,13 +144,15 @@ const petsDemoDate = [
     favorite: false,
     size: "Small",
     description: "Pet1 is a cute pet",
-    shelter:{
-      name:"Care shelter",
-     address :"Greater London, UK",
-     image :"https://cdn.pixabay.com/photo/2023/12/04/17/24/evening-8429871_1280.jpg",
-     status: true,
-
-    }
+    vaccineStatus: true,
+    price: 202,
+    shelter: {
+      name: "Care shelter",
+      address: "Greater London, UK",
+      image:
+        "https://cdn.pixabay.com/photo/2023/12/04/17/24/evening-8429871_1280.jpg",
+      status: true,
+    },
   },
   {
     id: "ih7iy87",
@@ -158,13 +164,15 @@ const petsDemoDate = [
     favorite: true,
     size: "Small",
     description: "Pet1 is a cute pet",
-    shelter:{
-      name:"Good shelter",
-     address :"Greater London, UK",
-     image :"https://cdn.pixabay.com/photo/2023/12/04/17/24/evening-8429871_1280.jpg",
-     status: true,
-
-    }
+    price: 202,
+    vaccineStatus: true,
+    shelter: {
+      name: "Good shelter",
+      address: "Greater London, UK",
+      image:
+        "https://cdn.pixabay.com/photo/2023/12/04/17/24/evening-8429871_1280.jpg",
+      status: true,
+    },
   },
   {
     id: "786tgu7g7g",
@@ -176,13 +184,15 @@ const petsDemoDate = [
     favorite: false,
     size: "Small",
     description: "Pet1 is a cute pet",
-    shelter:{
-      name:"Ben shelter",
-     address :"Greater London, UK",
-     image :" https://cdn.pixabay.com/photo/2023/12/04/17/24/evening-8429871_1280.jpg",
-     status: false,
-
-    }
+    vaccineStatus: true,
+    price: 202,
+    shelter: {
+      name: "Ben shelter",
+      address: "Greater London, UK",
+      image:
+        " https://cdn.pixabay.com/photo/2023/12/04/17/24/evening-8429871_1280.jpg",
+      status: false,
+    },
   },
 ];
 

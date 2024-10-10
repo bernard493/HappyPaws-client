@@ -22,6 +22,8 @@ import { MdSaveAlt } from "react-icons/md";
 
 import { petsDemoDate } from "../../const/constant";
 import useWindowWide from "../../CustomHooks/useWindowWide ";
+import Button from "../Button/Button";
+import { useNavigate } from "react-router-dom";
 
 const PetDetailsDrawer = ({
   isOpen,
@@ -30,8 +32,20 @@ const PetDetailsDrawer = ({
   petDetails,
   isLoading,
 }) => {
+  const navigate = useNavigate();
   const wide = useWindowWide(600);
-  console.log("with", wide);
+  const [isDisabled, setIsDisabled] = useState(false);
+
+  const handlePetAdoptionNavigationRequest = () => {
+    setIsDisabled(true);
+    navigate(`/adoption-request/${petDetails.name}`, {
+      state: {
+        petId: petDetails.id,
+      },
+    });
+    setIsDisabled(false);
+  };
+
   return (
     <>
       {!isLoading && petDetails ? (
@@ -117,21 +131,62 @@ const PetDetailsDrawer = ({
                   </div>
                 </section>
                 <section className="pet__Details__container">
-                  <div>
+                  <div className="pet__Details__container--shelter">
                     <Flex>
                       <Avatar src="https://cdn.pixabay.com/photo/2023/12/04/17/24/evening-8429871_1280.jpg" />
                       <Box ml="3">
                         <Text fontWeight="bold">
-                         {petDetails.shelter.name}
-                          <Badge ml="1" colorScheme={petDetails.shelter.status ? "green":"red"}>
-                            {petDetails.shelter.status ? "active":"not active "}
+                          {petDetails.shelter.name}
+                          <Badge
+                            ml="1"
+                            colorScheme={
+                              petDetails.shelter.status ? "green" : "red"
+                            }
+                          >
+                            {petDetails.shelter.status
+                              ? "active"
+                              : "not active "}
                           </Badge>
                         </Text>
                         <Text fontSize="sm">{petDetails.shelter.address}</Text>
                       </Box>
                     </Flex>
+                    <div className="">
+                      <Text fontSize="">Adoption Price</Text>
+                      <Text fontWeight="bold">£ {petDetails.price}</Text>
+                    </div>
                   </div>
-                  <div>
+                  <div className="pet__Details__information--container">
+                    <div className="pet__Details__information">
+                      <div className="">
+                        <Text fontSize="sm">Sex</Text>
+                        <Text fontWeight="bold">{petDetails.gender}</Text>
+                      </div>
+                      <div className="">
+                        <Text fontSize="sm">Size</Text>
+                        <Text fontWeight="bold">{petDetails.size}</Text>
+                      </div>
+                      <div className="">
+                        <Text fontSize="sm">Age</Text>
+                        <Text fontWeight="bold">{petDetails.age}</Text>
+                      </div>
+                      <div className="">
+                        <Text fontSize="sm">Breed</Text>
+                        <Text fontWeight="bold">{petDetails.breed}</Text>
+                      </div>
+                      <div>
+                        <Text fontSize="sm">Vaccine Status</Text>
+                        <Badge
+                          ml="1"
+                          colorScheme={
+                            petDetails.vaccineStatus ? "green" : "red"
+                          }
+                        >
+                          {petDetails.vaccineStatus ? "active" : "not active "}
+                        </Badge>
+                      </div>
+                    </div>
+
                     <h3>Description</h3>
                     <p>{petDetails.description}</p>
                   </div>
@@ -139,10 +194,15 @@ const PetDetailsDrawer = ({
               </DrawerBody>
 
               <DrawerFooter>
-                <button variant="outline" mr={3} onClick={onClose}>
+                {/* <button variant="outline" mr={3} onClick={onClose}>
                   Cancel
-                </button>
-                <button>Save</button>
+                </button> */}
+                <Button
+                  handleButtonClick={handlePetAdoptionNavigationRequest}
+                  isDisabledState={isDisabled}
+                  notDisabledText={"Make offer"}
+                  isDisabledText={" "}
+                />
               </DrawerFooter>
             </DrawerContent>
           </Drawer>
