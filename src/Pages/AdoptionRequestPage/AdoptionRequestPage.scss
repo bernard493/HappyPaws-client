@@ -23,6 +23,9 @@
     }
   }
 }
+
+
+
 .adoption__container {
   display: flex;
   flex-direction: column;
@@ -44,7 +47,9 @@
   border-radius: 1rem;
   border: 1px solid #ccc;
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-
+  @include tablet{
+    width: 35vw;
+  }
   &--shelter {
     display: flex;
     justify-content: space-between;
@@ -59,7 +64,7 @@
   border-radius: 0.5rem;
   @include tablet {
     height: 20vh;
-    width: 20vw;
+    // width: 20vw;
   }
   @include desktop {
     // height: 20vh;
@@ -82,3 +87,5 @@
   border: 1px solid #ccc;
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
+
+

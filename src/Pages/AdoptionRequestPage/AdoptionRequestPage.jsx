@@ -37,7 +37,7 @@ const AdoptionRequestPage = () => {
       <div className="adoption__container">
         <div>
           <section className="adoption__pet--container">
-            <div>
+            <div className="">
               <img
                 src="https://cdn.pixabay.com/photo/2023/12/04/17/24/evening-8429871_1280.jpg"
                 className="adoption__pet--image"
