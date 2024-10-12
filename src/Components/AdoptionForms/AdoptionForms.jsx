@@ -9,6 +9,8 @@ import {
 import Button from "../Button/Button";
 import axios from "axios";
 import { FaCheck } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@chakra-ui/react";
 
 const validate = (values) => {
   const errors = {};
@@ -42,6 +44,8 @@ const validate = (values) => {
 };
 
 const AdoptionForms = () => {
+  const navigate = useNavigate();
+  const toast = useToast();
   const [isDisabled, setIsDisabled] = useState(false);
   const [errors, setErrors] = useState({});
   const [values, setValues] = useState({
@@ -67,7 +71,16 @@ const AdoptionForms = () => {
       //  Api call with values
       //   console.log("Form submitted successfully:", response.data);
       // You can handle the success message or redirect the user here
-      console.log('values',values);
+      console.log("values", values);
+      toast({
+        title: "Request submitted ",
+        description: "Adoption request submitted successfully",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+        position: "top-right",
+      });
+      navigate("/profile");
     } catch (error) {
       console.error("Error submitting the form:", error);
       // Handle error response
