@@ -1,0 +1,26 @@
+@use "../../styles/partials/mixin" as *;
+@use "../../styles/partials/variables" as *;
+
+.request-card {
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+  border: 1px solid #ccc;
+  
+  &__order-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__detail-container{
+    padding-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__order-text{
+    font-weight: bold;
+  }
+}
