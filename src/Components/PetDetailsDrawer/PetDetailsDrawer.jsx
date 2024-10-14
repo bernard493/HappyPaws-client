@@ -16,11 +16,9 @@ import {
   Text,
   Badge,
 } from "@chakra-ui/react";
-import axios from "axios";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { MdSaveAlt } from "react-icons/md";
 
-import { petsDemoDate } from "../../const/constant";
 import useWindowWide from "../../CustomHooks/useWindowWide ";
 import Button from "../Button/Button";
 import { useNavigate } from "react-router-dom";
@@ -51,7 +49,7 @@ const PetDetailsDrawer = ({
       {!isLoading && petDetails ? (
         <div>
           <Drawer
-            isOpen={isOpen}
+            isOpen={true}
             placement="right"
             onClose={onClose}
             finalFocusRef={btnRef}

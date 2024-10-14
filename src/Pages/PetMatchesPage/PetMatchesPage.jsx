@@ -8,12 +8,13 @@ import Button from "../../Components/Button/Button";
 import { heroTexts, petsDemoDate } from "../../const/constant";
 import PetCard from "../../Components/PetCard/PetCard";
 import Paginate from "../../Components/ReactPaginate/ReactPaginate";
+import { generatePetRecommendations } from "../../API/Search__Api";
 
 const PetMatchesPage = () => {
   const location = useLocation();
   const btnRef = React.useRef();
   const queryParams = new URLSearchParams(location.search);
-  const userInput = decodeURIComponent(queryParams.get("search"));
+  const userSearchInput = decodeURIComponent(queryParams.get("search"));
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [searchInput, setSearchInput] = useState("");
@@ -37,16 +38,29 @@ const PetMatchesPage = () => {
     setItemOffset(newOffset);
   };
 
-  // API Call to get pet details
+  // // API Call to get pet details
+  // useEffect(() => {
+  //   const getPetsRecommendations = async () => {
+  //     const { status, data } = await generatePetRecommendations(
+  //       userSearchInput
+  //     );
+  //     if (status === 200) {
+  //       setAllPets(data.results);
+  //       setIsLoadingPetDetails(false);
+  //     }
+  //   };
+  //   getPetsRecommendations();
+  // }, [userSearchInput]);
 
   const fetchPetDetails = async (petId) => {
     try {
       setIsLoadingPetDetails(true);
       // const { status, data } = await axios.get("");
-      const pet = petsDemoDate.find((eachPet) => {
+      const pet = allPets.find((eachPet) => {
         const { id } = eachPet;
         return id === petId;
       });
+      console.log('found pet',pet);
       setSelectedPetDetails(pet);
     } catch {
       console.log("Error fetching pet details");
@@ -57,8 +71,9 @@ const PetMatchesPage = () => {
 
   //   get get selected pet and open drawer
   const handleOpenPetDetailsDrawer = (petId) => {
+    console.log('hello open drawr',petId);
     onOpen();
-    fetchPetDetails(petId);
+    // fetchPetDetails(petId);
   };
 
   const handleSearchNewSearchRequest = () => {
