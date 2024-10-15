@@ -18,17 +18,19 @@ import { registerUser } from "../../API/User__Api";
 const SignupPage = () => {
   const { login } = useAuth();
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [role, setRole] = useState("");
   const [emailError, setEmailError] = useState("");
   const [roleError, setRoleError] = useState("");
-  const [usernameError, setUsernameError] = useState("");
+  const [userNameError, setUserNameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [isDisabled, setIsDisabled] = useState(false);
   const navigate = useNavigate();
+
+
 
   const validateEmail = () => {
     if (!email) {
@@ -42,9 +44,9 @@ const SignupPage = () => {
       return true;
     }
   };
-  const validateUsername = () => {
-    if (!username) {
-      setUsernameError("Username is required");
+  const validateUserName = () => {
+    if (!userName) {
+      setUserNameError("UserName is required");
       return false;
     }
     return true;
@@ -96,7 +98,7 @@ const SignupPage = () => {
       const { status } = await registerUser({
         email,
         password,
-        username,
+        username: userName,
         role,
       });
       if (status === 201) {
@@ -120,16 +122,16 @@ const SignupPage = () => {
         </Box>
         <Box my={4} textAlign="left">
           <form onSubmit={handleSignUpSubmit}>
-            <FormControl isInvalid={!!usernameError}>
+            <FormControl isInvalid={!!userNameError}>
               <FormLabel>User Name</FormLabel>
               <Input
                 type="text"
                 placeholder="John Doe"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                onBlur={validateUsername}
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+                onBlur={validateUserName}
               />
-              <FormErrorMessage>{emailError}</FormErrorMessage>
+              <FormErrorMessage>{userNameError}</FormErrorMessage>
             </FormControl>
             <FormControl mt={6}>
               <FormLabel>Role</FormLabel>
