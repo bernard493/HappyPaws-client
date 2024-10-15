@@ -7,14 +7,15 @@ import Button from "../Button/Button";
 const PetCard = ({ pet, petId, onOpen }) => {
   const [isDisabled, setisDisabled] = useState(false);
 
-  // const handleSelectedPet = (petId) => {
-  //   onOpen(petId);
-  // };
+  const handleSelectedPet = (petId) => {
+    onOpen(petId);
+  };
+
 
   return (
     <div className="petCard">
       <div className="petCard__cont">
-        <img src={pet.image[0]} alt={pet.name} className="petCard__img" />
+        <img src={pet.images[0]} alt={pet.name} className="petCard__img" />
         <div className="petCard__info">
           <div className="petCard__info--name-container">
             <h2 className="petCard__info--name">{pet.name}</h2>
@@ -24,7 +25,10 @@ const PetCard = ({ pet, petId, onOpen }) => {
               <MdFavoriteBorder size={29} />
             )} */}
           </div>
-
+          {/* <div className="petCard__info--location">
+            <CiLocationOn />
+            <p className="petCard__info--text">london, UK</p>
+          </div> */}
           <div className="petCard__info--container">
             <p className="petCard__info--text">
               Gender:{"  "}
@@ -54,7 +58,7 @@ const PetCard = ({ pet, petId, onOpen }) => {
       </div>
       <div className="petCard__bt--container">
         <Button
-          handleButtonClick={() => onOpen(petId)}
+          handleButtonClick={() => handleSelectedPet(petId)}
           isDisabledState={isDisabled}
           notDisabledText={"More Info"}
           isDisabledText={"More Info"}

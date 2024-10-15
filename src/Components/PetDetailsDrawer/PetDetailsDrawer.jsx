@@ -44,12 +44,14 @@ const PetDetailsDrawer = ({
     setIsDisabled(false);
   };
 
+  console.log("petDetails", petDetails);
+
   return (
     <>
       {!isLoading && petDetails ? (
         <div>
           <Drawer
-            isOpen={true}
+            isOpen={isOpen}
             placement="right"
             onClose={onClose}
             finalFocusRef={btnRef}
@@ -87,7 +89,7 @@ const PetDetailsDrawer = ({
                     >
                       <GridItem borderRadius={10} rowSpan={2} colSpan={3}>
                         <img
-                          src={petDetails.image[0]}
+                          src={petDetails.images[0]}
                           alt={petDetails.name}
                           className="pet__Details--img"
                         />
@@ -98,7 +100,7 @@ const PetDetailsDrawer = ({
                         h={wide ? "200px" : ""}
                       >
                         <img
-                          src={petDetails.image[1]}
+                          src={petDetails.images[1]}
                           alt={petDetails.name}
                           className="pet__Details--img"
                         />
@@ -109,7 +111,7 @@ const PetDetailsDrawer = ({
                         h={wide ? "200px" : ""}
                       >
                         <img
-                          src={petDetails.image[2]}
+                          src={petDetails.images[2]}
                           alt={petDetails.name}
                           className="pet__Details--img"
                         />
@@ -120,7 +122,7 @@ const PetDetailsDrawer = ({
                         h={wide ? "200px" : ""}
                       >
                         <img
-                          src={petDetails.image[0]}
+                          src={petDetails.images[0]}
                           alt={petDetails.name}
                           className="pet__Details--img"
                         />
@@ -131,17 +133,17 @@ const PetDetailsDrawer = ({
                 <section className="pet__Details__container">
                   <div className="pet__Details__container--shelter">
                     <Flex>
-                      <Avatar src="https://cdn.pixabay.com/photo/2023/12/04/17/24/evening-8429871_1280.jpg" />
+                      <Avatar src={petDetails.shelter.image} />
                       <Box ml="3">
                         <Text fontWeight="bold">
                           {petDetails.shelter.name}
                           <Badge
                             ml="1"
                             colorScheme={
-                              petDetails.shelter.status ? "green" : "red"
+                              petDetails.shelter.status === 1 ? "green" : "red"
                             }
                           >
-                            {petDetails.shelter.status
+                            {petDetails.shelter.status === 1
                               ? "active"
                               : "not active "}
                           </Badge>
@@ -177,10 +179,12 @@ const PetDetailsDrawer = ({
                         <Badge
                           ml="1"
                           colorScheme={
-                            petDetails.vaccineStatus ? "green" : "red"
+                            petDetails.vaccineStatus === 1 ? "green" : "red"
                           }
                         >
-                          {petDetails.vaccineStatus ? "active" : "not active "}
+                          {petDetails.vaccineStatus === 1
+                            ? "active"
+                            : "not active "}
                         </Badge>
                       </div>
                     </div>
