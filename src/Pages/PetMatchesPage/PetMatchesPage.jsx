@@ -8,18 +8,20 @@ import Button from "../../Components/Button/Button";
 import { heroTexts, petsDemoDate } from "../../const/constant";
 import PetCard from "../../Components/PetCard/PetCard";
 import Paginate from "../../Components/ReactPaginate/ReactPaginate";
+import { generatePetRecommendations } from "../../API/Search__Api";
+import { getPetDetailsById } from "../../API/Pets__Api";
 
 const PetMatchesPage = () => {
   const location = useLocation();
   const btnRef = React.useRef();
   const queryParams = new URLSearchParams(location.search);
-  const userInput = decodeURIComponent(queryParams.get("search"));
+  const userSearchInput = decodeURIComponent(queryParams.get("search"));
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [searchInput, setSearchInput] = useState("");
   const [heroText, setHeroText] = useState(heroTexts);
   const [isDisabled, setIsDisabled] = useState(false);
-  const [allPets, setAllPets] = useState(petsDemoDate);
+  const [allPets, setAllPets] = useState([]);
   const [itemsPerPage, setItemsPerPage] = useState(20);
   const [error, setError] = useState(false);
   const [itemOffset, setItemOffset] = useState(0);
@@ -37,17 +39,27 @@ const PetMatchesPage = () => {
     setItemOffset(newOffset);
   };
 
-  // API Call to get pet details
+  // // API Call to get pet details
+  useEffect(() => {
+    const getPetsRecommendations = async () => {
+      const { status, data } = await generatePetRecommendations(
+        userSearchInput
+      );
+      console.log("data.results", data.results);
+      if (status === 200) {
+        setAllPets(data.results);
+        setIsLoadingPetDetails(false);
+      }
+    };
+    getPetsRecommendations();
+  }, [userSearchInput]);
 
   const fetchPetDetails = async (petId) => {
     try {
       setIsLoadingPetDetails(true);
-      // const { status, data } = await axios.get("");
-      const pet = petsDemoDate.find((eachPet) => {
-        const { id } = eachPet;
-        return id === petId;
-      });
-      setSelectedPetDetails(pet);
+      const { status, data } = await getPetDetailsById(petId);
+      setSelectedPetDetails(data);
+      console.log('pet details',data);
     } catch {
       console.log("Error fetching pet details");
     } finally {
@@ -57,6 +69,7 @@ const PetMatchesPage = () => {
 
   //   get get selected pet and open drawer
   const handleOpenPetDetailsDrawer = (petId) => {
+    console.log("hello open drawr", petId);
     onOpen();
     fetchPetDetails(petId);
   };
