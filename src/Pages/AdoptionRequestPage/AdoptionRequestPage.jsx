@@ -28,7 +28,8 @@ const petDetails = {
 
 const AdoptionRequestPage = () => {
   const location = useLocation();
-  // const { petId } = location.state;
+  const [pet, setPet] = React.useState({})
+  const { petId } = location.state;
   return (
     <section className="adoption-request-page">
       <h2 className="adoption-request-page__header-text">
@@ -73,7 +74,7 @@ const AdoptionRequestPage = () => {
           </section>
         </div>
         <section className="adoption__form--container">
-          <AdoptionForms />
+          <AdoptionForms price={petDetails.price} petId={petId} />
         </section>
       </div>
     </section>
