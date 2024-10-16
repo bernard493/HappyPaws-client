@@ -91,8 +91,8 @@ const SignupPage = () => {
 
   const handleSignUpSubmit = async (e) => {
     e.preventDefault();
-    setIsDisabled(true);
     try {
+      setIsDisabled(true);
       if (
         validateEmail() &&
         validatePassword() &&
@@ -127,11 +127,13 @@ const SignupPage = () => {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsDisabled(false);
     }
   };
 
   return (
-    <Flex minH={"100vh"} align={"center"} justify={"center"}>
+    <Flex minH={"70vh"} align={"center"} justify={"center"}>
       <Box
         borderWidth={1}
         px={4}

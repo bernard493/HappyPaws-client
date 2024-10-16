@@ -9,13 +9,11 @@ import {
   FormErrorMessage,
   Text,
   useToast,
- 
 } from "@chakra-ui/react";
 import { useAuth } from "../../CustomHooks/AuthProvider ";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { userLogin } from "../../API/User__Api";
 import Button from "../../Components/Button/Button";
-
 
 const LoginPage = () => {
   const { login } = useAuth();
@@ -54,44 +52,49 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsDisabled(true);
-    console.log("hello");
-    if (validateEmail() && validatePassword()) {
-      const { status, data } = await userLogin({
-        email,
-        password,
-      });
-
-      if (status === 200) {
-        const { token } = data;
-        login(token);
-        // After successful login, navigate back to the original path with query parameters
-        const { message } = data;
-        toast({
-          position: "top-right",
-          title: message,
-          status: "success",
-          isClosable: true,
+    try {
+      setIsDisabled(true);
+      if (validateEmail() && validatePassword()) {
+        const { status, data } = await userLogin({
+          email,
+          password,
         });
-        navigate(from, { replace: true });
-        setIsDisabled(false);
-      }
 
-      if (status === 401) {
-        setIsDisabled(false);
-        const { message } = data;
-        toast({
-          position: "top-right",
-          title: message,
-          status: "info",
-          isClosable: true,
-        });
+        if (status === 200) {
+          const { token } = data;
+          login(token);
+          // After successful login, navigate back to the original path with query parameters
+          const { message } = data;
+          toast({
+            position: "top-right",
+            title: message,
+            status: "success",
+            isClosable: true,
+          });
+          navigate(from, { replace: true });
+          setIsDisabled(false);
+        }
+
+        if (status === 401) {
+          setIsDisabled(false);
+          const { message } = data;
+          toast({
+            position: "top-right",
+            title: message,
+            status: "info",
+            isClosable: true,
+          });
+        }
       }
+    } catch (error) {
+
+    } finally {
+      setIsDisabled(false);
     }
   };
 
   return (
-    <Flex minH={"100vh"} align={"center"} justify={"center"}>
+    <Flex minH={"70vh"} align={"center"} justify={"center"}>
       <Box
         borderWidth={1}
         px={4}
@@ -127,7 +130,7 @@ const LoginPage = () => {
               />
               <FormErrorMessage>{passwordError}</FormErrorMessage>
             </FormControl>
-          
+
             <div
               style={{
                 display: "flex",
