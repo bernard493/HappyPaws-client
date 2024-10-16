@@ -5,15 +5,17 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Button,
   Heading,
   FormErrorMessage,
   Text,
+  useToast,
+ 
 } from "@chakra-ui/react";
 import { useAuth } from "../../CustomHooks/AuthProvider ";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { userLogin } from "../../API/User__Api";
-// import Button from "../../Components/Button/Button";
+import Button from "../../Components/Button/Button";
+
 
 const LoginPage = () => {
   const { login } = useAuth();
@@ -24,7 +26,8 @@ const LoginPage = () => {
   const [isDisabled, setIsDisabled] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from || "/home"; // Fallback to /home if no path is stored
+  const toast = useToast();
+  const from = location.state?.from || "/";
 
   const validateEmail = () => {
     if (!email) {
@@ -38,6 +41,7 @@ const LoginPage = () => {
       return true;
     }
   };
+
   const validatePassword = () => {
     if (!password) {
       setPasswordError("Password is required");
@@ -47,18 +51,41 @@ const LoginPage = () => {
       return true;
     }
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsDisabled(true);
+    console.log("hello");
     if (validateEmail() && validatePassword()) {
       const { status, data } = await userLogin({
         email,
         password,
       });
+
       if (status === 200) {
         const { token } = data;
         login(token);
         // After successful login, navigate back to the original path with query parameters
+        const { message } = data;
+        toast({
+          position: "top-right",
+          title: message,
+          status: "success",
+          isClosable: true,
+        });
         navigate(from, { replace: true });
+        setIsDisabled(false);
+      }
+
+      if (status === 401) {
+        setIsDisabled(false);
+        const { message } = data;
+        toast({
+          position: "top-right",
+          title: message,
+          status: "info",
+          isClosable: true,
+        });
       }
     }
   };
@@ -100,24 +127,24 @@ const LoginPage = () => {
               />
               <FormErrorMessage>{passwordError}</FormErrorMessage>
             </FormControl>
-            <Button
-              width="full"
-              mt={4}
-              colorScheme="teal"
-              type="submit"
-              onClick={handleSubmit}
+          
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                paddingTop: 20,
+              }}
             >
-              Login
-            </Button>
-            {/* <Button
-              handleButtonClick={handleSubmit}
-              isDisabledState={isDisabled}
-              notDisabledText={"Make offer"}
-              isDisabledText={"Submitting..."}
-            /> */}
+              <Button
+                handleButtonClick={handleSubmit}
+                isDisabledState={isDisabled}
+                notDisabledText={"Login"}
+                isDisabledText={"Loading..."}
+              />
+            </div>
           </form>
           <Box textAlign="center" mt={4}>
-            <Link to={"/auth/create-account"} >
+            <Link to={"/auth/create-account"}>
               <Text>New HERE? Sing up Now</Text>
             </Link>
           </Box>

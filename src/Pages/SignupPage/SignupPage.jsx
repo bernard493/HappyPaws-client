@@ -5,18 +5,20 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Button,
   Heading,
   FormErrorMessage,
   Text,
-  Select,
+  RadioGroup,
+  Stack,
+  Radio,
+  useToast,
 } from "@chakra-ui/react";
 import { useAuth } from "../../CustomHooks/AuthProvider ";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { registerUser } from "../../API/User__Api";
+import Button from "../../Components/Button/Button";
 
 const SignupPage = () => {
-  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -29,8 +31,7 @@ const SignupPage = () => {
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [isDisabled, setIsDisabled] = useState(false);
   const navigate = useNavigate();
-
-
+  const toast = useToast();
 
   const validateEmail = () => {
     if (!email) {
@@ -90,20 +91,42 @@ const SignupPage = () => {
 
   const handleSignUpSubmit = async (e) => {
     e.preventDefault();
-    if (
-      validateEmail() &&
-      validatePassword() &&
-      validatePasswordAndConfirmPasswordAreSame()
-    ) {
-      const { status } = await registerUser({
-        email,
-        password,
-        username: userName,
-        role,
-      });
-      if (status === 201) {
-        navigate("/auth/login");
+    setIsDisabled(true);
+    try {
+      if (
+        validateEmail() &&
+        validatePassword() &&
+        validatePasswordAndConfirmPasswordAreSame()
+      ) {
+        const { status, data } = await registerUser({
+          email,
+          password,
+          username: userName,
+          role,
+        });
+        const { message } = data;
+        if (status === 201) {
+          toast({
+            position: "top-right",
+            title: message,
+            status: "success",
+            isClosable: true,
+          });
+          navigate("/auth/login");
+          setIsDisabled(false);
+        }
+        if (status === 400) {
+          toast({
+            position: "top-right",
+            title: message,
+            status: "info",
+            isClosable: true,
+          });
+          setIsDisabled(false);
+        }
       }
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -135,17 +158,23 @@ const SignupPage = () => {
             </FormControl>
             <FormControl mt={6}>
               <FormLabel>Role</FormLabel>
-              <Select
+              <RadioGroup
+                onChange={setRole}
                 value={role}
-                onChange={(e) => setRole(e.target.value)}
+                defaultValue="adopter"
                 onBlur={validateUserRole}
-                // placeholder="Select option"
-                defaultValue={"Adopter"}
               >
-                <option value="adopter">Adopter</option>
-                {/* <option value="shelter">Shelter</option> */}
-              </Select>
-              {/* <FormErrorMessage>{roleError}</FormErrorMessage> */}
+                <Stack spacing={5} direction="row">
+                  <Radio colorScheme="green" value="adopter">
+                    Adopter
+                  </Radio>
+                  <Radio colorScheme="green" value="shelter">
+                    Shelter
+                  </Radio>
+                </Stack>
+              </RadioGroup>
+
+              <FormErrorMessage>{roleError}</FormErrorMessage>
             </FormControl>
             <FormControl mt={6} isInvalid={!!emailError}>
               <FormLabel>Email</FormLabel>
@@ -180,21 +209,21 @@ const SignupPage = () => {
               />
               <FormErrorMessage>{confirmPasswordError}</FormErrorMessage>
             </FormControl>
-            <Button
-              width="full"
-              mt={4}
-              colorScheme="teal"
-              type="submit"
-              onClick={handleSignUpSubmit}
+
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                paddingTop: 20,
+              }}
             >
-              Create Account
-            </Button>
-            {/* <Button
-              handleButtonClick={handleSignUpSubmit}
-              isDisabledState={isDisabled}
-              notDisabledText={"Make offer"}
-              isDisabledText={"Submitting..."}
-            /> */}
+              <Button
+                handleButtonClick={handleSignUpSubmit}
+                isDisabledState={isDisabled}
+                notDisabledText={"Create Account"}
+                isDisabledText={"Loading..."}
+              />
+            </div>
           </form>
           <Box textAlign="center" mt={4}>
             <Link to={"/auth/create-account"}>

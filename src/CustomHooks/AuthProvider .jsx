@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
 
 
   const login = (userToken) => {
-    Cookies.set("token", userToken, { expires: 7 });
+    Cookies.set("token", userToken, { expires: 1 });
     setToken(userToken); 
   };
 
