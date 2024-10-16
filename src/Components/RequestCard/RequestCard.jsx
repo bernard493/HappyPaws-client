@@ -2,7 +2,7 @@ import React from "react";
 import "./RequestCard.scss";
 import { Badge } from "@chakra-ui/react";
 const RequestCard = ({ request }) => {
-  const { name, orderNumber, price, offerPrice, shelter, orderStatus } =
+  const { name, orderNumber, price, offerPrice, shelterName, orderStatus } =
     request;
   return (
     <div className="request-card">
@@ -32,7 +32,7 @@ const RequestCard = ({ request }) => {
             Name : <span className="request-card__order-text">{name}</span>
           </p>
           <p>
-            Shelter : <span className="request-card__order-text">{shelter.name}</span>
+            Shelter : <span className="request-card__order-text">{shelterName}</span>
           </p>
         </div>
         <div>

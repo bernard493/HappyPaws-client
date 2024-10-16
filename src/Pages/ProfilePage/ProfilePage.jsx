@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./ProfilePage.scss";
 import Button from "../../Components/Button/Button";
 import {
@@ -14,62 +14,24 @@ import {
 import { CiLocationOn } from "react-icons/ci";
 import EditProfileDrawer from "../../Components/EditProfileDrawer/EditProfileDrawer";
 import RequestCard from "../../Components/RequestCard/RequestCard";
-
-const adoptionRequests = [
-  {
-    id: "13fwsqwfwf",
-    name: "Pet1",
-    orderNumber: 223,
-    price: 202,
-    offerPrice: 299,
-    shelter: {
-      id: "6f5r65r6776t67",
-      name: "Loves shelter",
-    },
-    orderStatus: "Pending", // Canceled , Approved , Completed
-  },
-  {
-    id: "13fwsqwfwf",
-    name: "Pet1",
-    orderNumber: 223,
-    price: 202,
-    offerPrice: 299,
-    shelter: {
-      id: "6f5r65r6776t67",
-      name: "Loves shelter",
-    },
-    orderStatus: "Approved",
-  },
-  {
-    id: "13fwsqwfwf",
-    name: "Pet1",
-    orderNumber: 223,
-    price: 202,
-    offerPrice: 299,
-    shelter: {
-      id: "6f5r65r6776t67",
-      name: "Loves shelter",
-    },
-    orderStatus: "Canceled",
-  },
-  {
-    id: "13fwsqwfwf",
-    name: "Scooby",
-    orderNumber: 223,
-    price: 202,
-    offerPrice: 299,
-    shelter: {
-      id: "6f5r65r6776t67",
-      name: "Loves shelter",
-    },
-    orderStatus: "Completed",
-  },
-];
+import { GetAllAdoptionRequest } from "../../API/Adoption-Request__Apis";
 
 const ProfilePage = () => {
   const [isDisabled, setIsDisabled] = useState(false);
+  const [adoptionRequests, setAdoptionRequests] = useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
+
+  useEffect(() => {
+    const getAllUserAdoptionRequest = async () => {
+      const { status, data } = await GetAllAdoptionRequest();
+      console.log("data", data);
+      if (status === 200) {
+        setAdoptionRequests(data);
+      }
+    };
+    getAllUserAdoptionRequest();
+  }, []);
 
   const handleEditProfile = () => {
     // setIsDisabled(!isDisabled);
@@ -106,10 +68,10 @@ const ProfilePage = () => {
           <h2 className="adoption-request__container--title">
             Adoption Requests
           </h2>
-          <Accordion  allowMultiples>
+          <Accordion defaultIndex={[0]} allowMultiple>
             <AccordionItem>
               <h2>
-                <AccordionButton _expanded={{ bg: 'black', color: 'white' }}>
+                <AccordionButton _expanded={{ bg: "black", color: "white" }}>
                   <Box as="span" flex="1" textAlign="left">
                     Active Requests
                   </Box>
@@ -132,7 +94,7 @@ const ProfilePage = () => {
 
             <AccordionItem>
               <h2>
-                <AccordionButton _expanded={{ bg: 'black', color: 'white' }}>
+                <AccordionButton _expanded={{ bg: "black", color: "white" }}>
                   <Box as="span" flex="1" textAlign="left">
                     Inactive Requests
                   </Box>
@@ -151,7 +113,7 @@ const ProfilePage = () => {
                     return <RequestCard key={request.id} request={request} />;
                   })}
               </AccordionPanel>
-            </AccordionItem> 
+            </AccordionItem>
           </Accordion>
         </div>
       </section>

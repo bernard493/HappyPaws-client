@@ -56,6 +56,9 @@ const Header = () => {
               <MenuList>
                 {/* MenuItems are not rendered unless Menu is open */}
                 <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
+                <MenuItem onClick={() => navigate("/profile")}>
+                  My Profile
+                </MenuItem>
               </MenuList>
             </Menu>
           ) : (
