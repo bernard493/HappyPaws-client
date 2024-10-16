@@ -226,8 +226,8 @@ const SignupPage = () => {
             </div>
           </form>
           <Box textAlign="center" mt={4}>
-            <Link to={"/auth/create-account"}>
-              <Text>New HERE? Sing up Now</Text>
+            <Link to={"/auth/login"}>
+              <Text>Old Member? Login Now</Text>
             </Link>
           </Box>
         </Box>
