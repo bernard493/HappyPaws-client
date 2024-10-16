@@ -1,17 +1,32 @@
 import React, { useState } from "react";
 import "./Header.scss";
-import { Link } from "react-router-dom";
-import { Button } from "@chakra-ui/react";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  Button,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Text,
+} from "@chakra-ui/react";
 import { MdCall } from "react-icons/md";
 import { Avatar } from "@chakra-ui/react";
+import { useAuth } from "../../CustomHooks/AuthProvider ";
 
 const Header = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const navigate = useNavigate();
+  const { logout, isAuthenticated } = useAuth();
+
+  const handleSignOut = () => {
+    logout();
+    navigate("/");
+  };
+
   return (
     <>
       <nav className="Navbar">
         <div className="Navbar__logo-container">
-          <Link to="/" >
+          <Link to="/">
             <h1 className="Navbar__logo-container--text">HAPPY PAWS!</h1>
           </Link>
         </div>
@@ -29,9 +44,25 @@ const Header = () => {
           >
             Contact
           </Button>
-          {/* {isLoggedIn && (
-            <Avatar size='sm' name="John Doe" src="https://bit.ly/sage-adebayo" />
-          )} */}
+          {isAuthenticated ? (
+            <Menu isLazy>
+              <MenuButton>
+                <Avatar
+                  size="sm"
+                  name="John Doe"
+                  src="https://bit.ly/sage-adebayo"
+                />
+              </MenuButton>
+              <MenuList>
+                {/* MenuItems are not rendered unless Menu is open */}
+                <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
+              </MenuList>
+            </Menu>
+          ) : (
+            <Link to="/auth/login">
+              <Text>Login or Sign Up</Text>
+            </Link>
+          )}
         </div>
       </nav>
       <div className="Navbar__bottom-border" />
