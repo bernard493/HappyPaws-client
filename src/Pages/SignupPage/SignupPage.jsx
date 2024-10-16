@@ -13,8 +13,7 @@ import {
   Radio,
   useToast,
 } from "@chakra-ui/react";
-import { useAuth } from "../../CustomHooks/AuthProvider ";
-import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { registerUser } from "../../API/User__Api";
 import Button from "../../Components/Button/Button";
 

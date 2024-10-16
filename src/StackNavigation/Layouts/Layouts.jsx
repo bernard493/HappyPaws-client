@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./Layouts.scss";
 import { BrowserRouter as Router } from "react-router-dom";
 import Header from "../../Components/Header/Header";

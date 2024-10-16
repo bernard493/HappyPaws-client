@@ -4,7 +4,6 @@ import LandingPage from "../../Pages/LandingPages/LandingPage";
 import PetMatchesPage from "../../Pages/PetMatchesPage/PetMatchesPage";
 import AdoptionRequestPage from "../../Pages/AdoptionRequestPage/AdoptionRequestPage";
 import ProfilePage from "../../Pages/ProfilePage/ProfilePage";
-import { useAuth } from "../../CustomHooks/AuthProvider ";
 import LoginPage from "../../Pages/LoginPage/LoginPage";
 import PrivateRoutes from "./PrivateRoutes ";
 import SignupPage from "../../Pages/SignupPage/SignupPage";
