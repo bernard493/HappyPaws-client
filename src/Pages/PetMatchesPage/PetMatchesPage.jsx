@@ -45,7 +45,6 @@ const PetMatchesPage = () => {
       const { status, data } = await generatePetRecommendations(
         userSearchInput
       );
-      console.log("data.results", data.results);
       if (status === 200) {
         setAllPets(data.results);
         setIsLoadingPetDetails(false);
@@ -59,7 +58,6 @@ const PetMatchesPage = () => {
       setIsLoadingPetDetails(true);
       const { status, data } = await getPetDetailsById(petId);
       setSelectedPetDetails(data);
-      console.log('pet details',data);
     } catch {
       console.log("Error fetching pet details");
     } finally {
