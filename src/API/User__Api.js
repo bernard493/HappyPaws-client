@@ -57,7 +57,7 @@ export const GetUserProfile = async () => {
   
       const token = Cookies.get('token');
   
-      const response = await ApiManager("/auth/profile", {
+      const response = await ApiManager("/profile", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

@@ -2,17 +2,20 @@ import "./App.css";
 import { AuthProvider } from "./CustomHooks/AuthProvider ";
 import Layouts from "./StackNavigation/Layouts/Layouts";
 import { ChakraProvider } from "@chakra-ui/react";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
 
 
 function App() {
  
-
   return (
-    <AuthProvider>
-      <ChakraProvider>
-        <Layouts />
-      </ChakraProvider>
-    </AuthProvider>
+    <Provider store={store}>
+      <AuthProvider>
+        <ChakraProvider>
+          <Layouts />
+        </ChakraProvider>
+      </AuthProvider>
+    </Provider>
   );
 }
 

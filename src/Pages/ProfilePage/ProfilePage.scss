@@ -17,7 +17,7 @@
     }
 
     @include desktop {
-      padding: 4rem;
+      padding: 2rem 4rem;
     }
 
     &-information {
@@ -32,7 +32,6 @@
 
     &-location__container {
       display: flex;
-      justify-content: center;
       align-items: center;
       gap: 0.5rem;
     }
@@ -43,11 +42,9 @@
   width: 100%;
   padding: 2rem 0;
   @include tablet {
-    padding: 2rem 0;
+    padding: 2rem 4rem;
   }
-  @include desktop {
-    padding: 4rem;
-  }
+
   &--title {
     font-size: 1.5rem;
     text-align: center;

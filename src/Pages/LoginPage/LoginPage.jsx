@@ -50,7 +50,9 @@ const LoginPage = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
+
+
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
     try {
       setIsDisabled(true);
@@ -59,24 +61,21 @@ const LoginPage = () => {
           email,
           password,
         });
-
+  
         if (status === 200) {
-          const { token } = data;
+          const { token, message } = data;
           login(token);
-          // After successful login, navigate back to the original path with query parameters
-          const { message } = data;
+  
           toast({
             position: "top-right",
             title: message,
             status: "success",
             isClosable: true,
           });
+  
+          // Navigate back to original page (or home if not available)
           navigate(from, { replace: true });
-          setIsDisabled(false);
-        }
-
-        if (status === 401) {
-          setIsDisabled(false);
+        } else if (status === 401) {
           const { message } = data;
           toast({
             position: "top-right",
@@ -84,14 +83,27 @@ const LoginPage = () => {
             status: "info",
             isClosable: true,
           });
+        } else if (status === 500) {
+          toast({
+            position: "top-right",
+            title: "Can't login now. Try again later.",
+            status: "info",
+            isClosable: true,
+          });
         }
       }
     } catch (error) {
-
+      toast({
+        position: "top-right",
+        title: "Something went wrong, please try again.",
+        status: "error",
+        isClosable: true,
+      });
     } finally {
       setIsDisabled(false);
     }
   };
+  
 
   return (
     <Flex minH={"70vh"} align={"center"} justify={"center"}>
@@ -107,7 +119,7 @@ const LoginPage = () => {
           <Heading>Login</Heading>
         </Box>
         <Box my={4} textAlign="left">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleLoginSubmit}>
             <FormControl isInvalid={!!emailError}>
               <FormLabel>Email</FormLabel>
               <Input
@@ -139,7 +151,7 @@ const LoginPage = () => {
               }}
             >
               <Button
-                handleButtonClick={handleSubmit}
+                handleButtonClick={handleLoginSubmit}
                 isDisabledState={isDisabled}
                 notDisabledText={"Login"}
                 isDisabledText={"Loading..."}
