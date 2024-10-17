@@ -12,8 +12,11 @@ import {
 import { MdCall } from "react-icons/md";
 import { Avatar } from "@chakra-ui/react";
 import { useAuth } from "../../CustomHooks/AuthProvider ";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const { user } = useSelector((state) => state.globalState);
+
   const navigate = useNavigate();
   const { logout, isAuthenticated } = useAuth();
 
@@ -47,18 +50,14 @@ const Header = () => {
           {isAuthenticated ? (
             <Menu isLazy>
               <MenuButton>
-                <Avatar
-                  size="sm"
-                  name="John Doe"
-                  src="https://bit.ly/sage-adebayo"
-                />
+                <Avatar size="sm" name={user.username} src={user.avatar} />
               </MenuButton>
               <MenuList>
                 {/* MenuItems are not rendered unless Menu is open */}
-                <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
                 <MenuItem onClick={() => navigate("/profile")}>
                   My Profile
                 </MenuItem>
+                <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
               </MenuList>
             </Menu>
           ) : (

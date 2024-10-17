@@ -29,7 +29,7 @@ const RequestCard = ({ request }) => {
       <div className="request-card__detail-container">
         <div>
           <p>
-            Name : <span className="request-card__order-text">{name}</span>
+            Pet Name : <span className="request-card__order-text">{name}</span>
           </p>
           <p>
             Shelter : <span className="request-card__order-text">{shelterName}</span>

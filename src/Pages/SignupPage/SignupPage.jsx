@@ -112,20 +112,23 @@ const SignupPage = () => {
             isClosable: true,
           });
           navigate("/auth/login");
-          setIsDisabled(false);
-        }
-        if (status === 400) {
+          
+        } else if (status === 400) {
           toast({
             position: "top-right",
             title: message,
             status: "info",
             isClosable: true,
           });
-          setIsDisabled(false);
         }
       }
     } catch (error) {
-      console.error(error);
+      toast({
+        position: "top-right",
+        title: "Something went wrong, please try again.",
+        status: "error",
+        isClosable: true,
+      });
     } finally {
       setIsDisabled(false);
     }

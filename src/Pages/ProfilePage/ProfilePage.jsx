@@ -15,23 +15,35 @@ import { CiLocationOn } from "react-icons/ci";
 import EditProfileDrawer from "../../Components/EditProfileDrawer/EditProfileDrawer";
 import RequestCard from "../../Components/RequestCard/RequestCard";
 import { GetAllAdoptionRequest } from "../../API/Adoption-Request__Apis";
+import { useSelector, useDispatch } from "react-redux";
 
 const ProfilePage = () => {
+  const { user } = useSelector((state) => state.globalState);
+  const dispatch = useDispatch();
   const [isDisabled, setIsDisabled] = useState(false);
   const [adoptionRequests, setAdoptionRequests] = useState([]);
+
+  // Handle Drawer 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
+
 
   useEffect(() => {
     const getAllUserAdoptionRequest = async () => {
       const { status, data } = await GetAllAdoptionRequest();
-      console.log("data", data);
       if (status === 200) {
         setAdoptionRequests(data);
       }
     };
     getAllUserAdoptionRequest();
   }, []);
+
+  // const getUserProfile = async () => {
+  //   const { status, data } = await GetUserProfile();
+  //   if (status === 200) {
+  //     setUserProfile(data);
+  //   }
+  // };
 
   const handleEditProfile = () => {
     // setIsDisabled(!isDisabled);
@@ -43,13 +55,14 @@ const ProfilePage = () => {
       <section className="profile-page">
         <div className="profile-page__details">
           <div className="profile-page__details-information">
-            <Avatar
-              size="lg"
-              name="Kent Dodds"
-              src="https://bit.ly/kent-c-dodds"
-            />
+            <Avatar size="lg" name={user.username} src={user.avatar} />
             <div className="profile-page__details-name">
-              <h2 className="profile-page__details-name-title">Kent Dodds</h2>
+              <h2 className="profile-page__details-name-title">
+                {user.username}
+              </h2>
+              <p className="profile-page__details-name-title">
+                {user.email}
+              </p>
               <div className="profile-page__details-location__container">
                 <CiLocationOn />
                 <p>location</p>

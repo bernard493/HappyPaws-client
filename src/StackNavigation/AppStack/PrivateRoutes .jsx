@@ -2,8 +2,14 @@ import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "../../CustomHooks/AuthProvider ";
 
 const PrivateRoutes = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, authChecked } = useAuth();
   const location = useLocation();
+
+  if (!authChecked) {
+    // Prevent navigation and wait for the auth check to finish
+    return null;
+
+  }
 
   return isAuthenticated ? (
     <Outlet />
