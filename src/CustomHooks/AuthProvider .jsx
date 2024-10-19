@@ -28,10 +28,10 @@ export const AuthProvider = ({ children }) => {
   };
 
   const isAuthenticated = !!token;
-  const isNotTokenExpired = !isExpired;
+  const isTokenExpired = isExpired;
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, login, logout, authChecked, isNotTokenExpired }}
+      value={{ isAuthenticated, login, logout, authChecked, isTokenExpired }}
     >
       {children}
     </AuthContext.Provider>

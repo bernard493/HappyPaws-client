@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./PetMatchesPage.scss";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDisclosure } from "@chakra-ui/react";
 import PetDetailsDrawer from "../../Components/PetDetailsDrawer/PetDetailsDrawer";
 import SearchInput from "../../Components/SearchInput/SearchInput";
@@ -10,9 +10,12 @@ import PetCard from "../../Components/PetCard/PetCard";
 import Paginate from "../../Components/ReactPaginate/ReactPaginate";
 import { generatePetRecommendations } from "../../API/Search__Api";
 import { getPetDetailsById } from "../../API/Pets__Api";
+import { useAuth } from "../../CustomHooks/AuthProvider ";
 
 const PetMatchesPage = () => {
+  const { isTokenExpired } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
   const btnRef = React.useRef();
   const queryParams = new URLSearchParams(location.search);
   const userSearchInput = decodeURIComponent(queryParams.get("search"));
@@ -41,16 +44,20 @@ const PetMatchesPage = () => {
 
   // // API Call to get pet details
   useEffect(() => {
-    const getPetsRecommendations = async () => {
-      const { status, data } = await generatePetRecommendations(
-        userSearchInput
-      );
-      if (status === 200) {
-        setAllPets(data.results);
-        setIsLoadingPetDetails(false);
-      }
-    };
-    getPetsRecommendations();
+    if (!isTokenExpired) {
+      const getPetsRecommendations = async () => {
+        const { status, data } = await generatePetRecommendations(
+          userSearchInput
+        );
+        if (status === 200) {
+          setAllPets(data.results);
+          setIsLoadingPetDetails(false);
+        }
+      };
+      getPetsRecommendations();
+    } else {
+      navigate("/auth/login");
+    }
   }, [userSearchInput]);
 
   const fetchPetDetails = async (petId) => {

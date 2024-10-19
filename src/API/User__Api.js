@@ -37,7 +37,7 @@ export const UpdateUserProfile = async (body) => {
 
     const token = Cookies.get('token');
 
-    const response = await ApiManager("/auth/profile", {
+    const response = await ApiManager("/profile", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

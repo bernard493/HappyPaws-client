@@ -22,6 +22,8 @@ import { MdSaveAlt } from "react-icons/md";
 import useWindowWide from "../../CustomHooks/useWindowWide ";
 import Button from "../Button/Button";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setSelectedPetForAdoptionState } from "../../store/globalStateSlice";
 
 const PetDetailsDrawer = ({
   isOpen,
@@ -31,11 +33,23 @@ const PetDetailsDrawer = ({
   isLoading,
 }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const wide = useWindowWide(600);
   const [isDisabled, setIsDisabled] = useState(false);
 
   const handlePetAdoptionNavigationRequest = () => {
     setIsDisabled(true);
+    dispatch(
+      setSelectedPetForAdoptionState({
+        petName: petDetails.name,
+        image: petDetails.images[0],
+        breed: petDetails.breed,
+        price: petDetails.price,
+        shelterName: petDetails.shelter.name,
+        shelterAddress: petDetails.shelter.address,
+        shelterAvatar: petDetails.shelter.image,
+      })
+    );
     navigate(`/adoption-request/${petDetails.name}`, {
       state: {
         petId: petDetails.id,
@@ -44,7 +58,6 @@ const PetDetailsDrawer = ({
     setIsDisabled(false);
   };
 
-  console.log("petDetails", petDetails);
 
   return (
     <>

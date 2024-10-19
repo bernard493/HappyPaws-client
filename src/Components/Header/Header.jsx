@@ -16,10 +16,14 @@ import { useSelector } from "react-redux";
 
 const Header = () => {
   const { user } = useSelector((state) => state.globalState);
-
   const navigate = useNavigate();
   const { logout, isAuthenticated } = useAuth();
 
+
+
+
+
+  
   const handleSignOut = () => {
     logout();
     navigate("/");
@@ -50,7 +54,7 @@ const Header = () => {
           {isAuthenticated ? (
             <Menu isLazy>
               <MenuButton>
-                <Avatar size="sm" name={user.username} src={user.avatar} />
+                <Avatar size="sm" name={"user.username"} src={user.avatar} />
               </MenuButton>
               <MenuList>
                 {/* MenuItems are not rendered unless Menu is open */}
