@@ -84,6 +84,7 @@
   &__bt--container {
     align-self: auto;
     margin-top: 1rem;
+    width: 100%;
     @include tablet {
       align-self: center;
     }

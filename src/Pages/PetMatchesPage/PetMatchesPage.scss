@@ -1,6 +1,7 @@
 @use "../../styles/partials/mixin" as *;
 @use "../../styles/partials/variables" as *;
 .PetMatches {
+  
   &__form--container {
     margin: 4rem 1rem 0 1rem;
     border-radius: 1rem;
@@ -9,6 +10,19 @@
     @include tablet {
       padding: 2rem;
       margin: 4rem 2rem;
+    }
+
+    &__mobile {
+      width: 100%;
+      @include tablet {
+        display: none;
+      }
+    }
+    &__tablet {
+      display: none;
+      @include tablet {
+        display: block;
+      }
     }
   }
   &__form {
