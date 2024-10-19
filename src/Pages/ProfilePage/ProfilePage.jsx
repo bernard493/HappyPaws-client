@@ -10,43 +10,73 @@ import {
   AccordionIcon,
   Box,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import { CiLocationOn } from "react-icons/ci";
 import EditProfileDrawer from "../../Components/EditProfileDrawer/EditProfileDrawer";
 import RequestCard from "../../Components/RequestCard/RequestCard";
 import { GetAllAdoptionRequest } from "../../API/Adoption-Request__Apis";
 import { useSelector, useDispatch } from "react-redux";
+import { UpdateUserProfile } from "../../API/User__Api";
+import { setUserGlobalState } from "../../store/globalStateSlice";
 
 const ProfilePage = () => {
+  const toast = useToast();
   const { user } = useSelector((state) => state.globalState);
   const dispatch = useDispatch();
   const [isDisabled, setIsDisabled] = useState(false);
   const [adoptionRequests, setAdoptionRequests] = useState([]);
+  const [isUpdatingUser, setIsUpdatingUser] = useState(false);
 
-  // Handle Drawer 
+  // Handle Drawer
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
 
-
   useEffect(() => {
     const getAllUserAdoptionRequest = async () => {
-      const { status, data } = await GetAllAdoptionRequest();
-      if (status === 200) {
-        setAdoptionRequests(data);
+      try {
+        const { status, data } = await GetAllAdoptionRequest();
+        if (status === 200) {
+          setAdoptionRequests(data);
+        }
+      } catch (error) {
+        console.log(error);
       }
     };
     getAllUserAdoptionRequest();
   }, []);
 
-  // const getUserProfile = async () => {
-  //   const { status, data } = await GetUserProfile();
-  //   if (status === 200) {
-  //     setUserProfile(data);
-  //   }
-  // };
+  const updateUserProfile = async (values) => {
+    try {
+      setIsUpdatingUser(true);
+      const { status, data } = await UpdateUserProfile(values);
+      const { message, data: newUserDate } = data;
+      console.log('{ status, data } ',{ status, data } );
+      if (status === 200) {
+        dispatch(setUserGlobalState(newUserDate));
+        toast({
+          position: "top-right",
+          title: message,
+          status: "success",
+          isClosable: true,
+        });
+        onClose();
+      } else if (status === 400) {
+        toast({
+          position: "top-right",
+          title: message,
+          status: "info",
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsUpdatingUser(false);
+    }
+  };
 
   const handleEditProfile = () => {
-    // setIsDisabled(!isDisabled);
     onOpen();
   };
 
@@ -60,9 +90,7 @@ const ProfilePage = () => {
               <h2 className="profile-page__details-name-title">
                 {user.username}
               </h2>
-              <p className="profile-page__details-name-title">
-                {user.email}
-              </p>
+              <p className="profile-page__details-name-title">{user.email}</p>
               <div className="profile-page__details-location__container">
                 <CiLocationOn />
                 <p>location</p>
@@ -130,7 +158,14 @@ const ProfilePage = () => {
           </Accordion>
         </div>
       </section>
-      <EditProfileDrawer isOpen={isOpen} btnRef={btnRef} onClose={onClose} />
+      <EditProfileDrawer
+        isUpdatingUser={isUpdatingUser}
+        user={user}
+        updateUserProfile={updateUserProfile}
+        isOpen={isOpen}
+        btnRef={btnRef}
+        onClose={onClose}
+      />
     </>
   );
 };

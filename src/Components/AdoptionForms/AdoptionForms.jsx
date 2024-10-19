@@ -33,7 +33,8 @@ const AdoptionForms = ({ price, petId }) => {
     price: price,
     petId,
   });
-  console.log({ price, petId });
+
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validate(values);
