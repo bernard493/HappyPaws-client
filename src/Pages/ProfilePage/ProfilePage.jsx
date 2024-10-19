@@ -51,7 +51,8 @@ const ProfilePage = () => {
       setIsUpdatingUser(true);
       const { status, data } = await UpdateUserProfile(values);
       const { message, data: newUserDate } = data;
-      console.log('{ status, data } ',{ status, data } );
+
+
       if (status === 200) {
         dispatch(setUserGlobalState(newUserDate));
         toast({
@@ -77,6 +78,7 @@ const ProfilePage = () => {
   };
 
   const handleEditProfile = () => {
+
     onOpen();
   };
 

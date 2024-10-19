@@ -20,7 +20,8 @@ const PetMatchesPage = () => {
   const queryParams = new URLSearchParams(location.search);
   const userSearchInput = decodeURIComponent(queryParams.get("search"));
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+console.log('queryParams',queryParams);
+console.log('userSearchInput',userSearchInput);
   const [searchInput, setSearchInput] = useState("");
   const [heroText, setHeroText] = useState(heroTexts);
   const [isDisabled, setIsDisabled] = useState(false);
@@ -74,7 +75,6 @@ const PetMatchesPage = () => {
 
   //   get get selected pet and open drawer
   const handleOpenPetDetailsDrawer = (petId) => {
-    console.log("hello open drawr", petId);
     onOpen();
     fetchPetDetails(petId);
   };

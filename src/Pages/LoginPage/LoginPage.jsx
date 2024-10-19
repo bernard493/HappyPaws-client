@@ -25,7 +25,9 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const toast = useToast();
-  const from = location.state?.from || "/";
+  const navigateToFrom = location.state?.from || "/";
+
+  console.log("navigateToFrom", navigateToFrom);
 
   const validateEmail = () => {
     if (!email) {
@@ -50,8 +52,6 @@ const LoginPage = () => {
     }
   };
 
-
-
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -61,20 +61,20 @@ const LoginPage = () => {
           email,
           password,
         });
-  
+
         if (status === 200) {
           const { token, message } = data;
           login(token);
-  
+
           toast({
             position: "top-right",
             title: message,
             status: "success",
             isClosable: true,
           });
-  
+
           // Navigate back to original page (or home if not available)
-          navigate(from, { replace: true });
+          navigate(navigateToFrom, { replace: true });
         } else if (status === 401) {
           const { message } = data;
           toast({
@@ -103,7 +103,6 @@ const LoginPage = () => {
       setIsDisabled(false);
     }
   };
-  
 
   return (
     <Flex minH={"70vh"} align={"center"} justify={"center"}>

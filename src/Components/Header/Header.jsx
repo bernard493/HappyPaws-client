@@ -17,7 +17,7 @@ import { useSelector } from "react-redux";
 const Header = () => {
   const { user } = useSelector((state) => state.globalState);
   const navigate = useNavigate();
-  const { logout, isAuthenticated } = useAuth();
+  const { logout, isAuthenticated  } = useAuth();
 
 
 
