@@ -3,11 +3,11 @@
 
 .footer-section {
   background-color: $color-primary-black;
+  color: $color-primary-white;
   padding: 1rem;
   @include tablet {
     padding: 4rem 2rem;
   }
-  color: $color-primary-white;
   &__logo-container--text {
     font-size: 1.5rem;
   }

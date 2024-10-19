@@ -52,7 +52,6 @@ const ProfilePage = () => {
       const { status, data } = await UpdateUserProfile(values);
       const { message, data: newUserDate } = data;
 
-
       if (status === 200) {
         dispatch(setUserGlobalState(newUserDate));
         toast({
@@ -78,7 +77,6 @@ const ProfilePage = () => {
   };
 
   const handleEditProfile = () => {
-
     onOpen();
   };
 
@@ -102,8 +100,8 @@ const ProfilePage = () => {
           <Button
             handleButtonClick={handleEditProfile}
             isDisabledState={isDisabled}
-            notDisabledText={"Edit Profile"}
-            isDisabledText={"Edit Profile"}
+            notDisabledText={"Edit"}
+            width={100}
           />
         </div>
 
