@@ -46,7 +46,6 @@ const AdoptionForms = ({ price, petId }) => {
 
     try {
       const { status, data } = await CreateAdoptionRequest(values);
-      console.log('{ status, data } ',{ status, data } );
       const { message } = data;
       if (status === 201) {
         toast({
@@ -70,8 +69,8 @@ const AdoptionForms = ({ price, petId }) => {
         });
       }
     } catch (error) {
-      console.error("Error submitting the form:", error);
       // Handle error response
+      console.error("Error submitting the form:", error);
     } finally {
       setIsDisabled(false);
     }

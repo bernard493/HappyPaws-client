@@ -7,7 +7,6 @@ const axiosInstance = ApiManager();
 
 
 export const generatePetRecommendations = async (body) => {
-  console.log('body',body);
   try {
     const response = await axiosInstance.post(
       "/generate-recommendation-breeds",
