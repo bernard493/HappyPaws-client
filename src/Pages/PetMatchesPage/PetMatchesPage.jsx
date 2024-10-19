@@ -90,7 +90,7 @@ const PetMatchesPage = () => {
     <section>
       <section className="PetMatches__form--container">
         <h1>Want to be more specific </h1>
-        <div className="PetMatches__form">
+        <div className="PetMatches__form" >
           <div className="PetMatches__form__input--container">
             <SearchInput
               isError={error}
@@ -99,12 +99,23 @@ const PetMatchesPage = () => {
               placeholder="I'm Looking for a pet that’s great with..."
             />
           </div>
-          <Button
-            handleButtonClick={handleSearchNewSearchRequest}
-            isDisabledState={isDisabled}
-            notDisabledText={"Meet Your Pet Pall"}
-            isDisabledText={"Finding Pet Pall..."}
-          />
+          <div className="PetMatches__form--container__mobile">
+            <Button
+              handleButtonClick={handleSearchNewSearchRequest}
+              isDisabledState={isDisabled}
+              notDisabledText={"Meet Your Pet Pall"}
+              isDisabledText={"Finding Pet Pall..."}
+            />
+          </div>
+          <div className="PetMatches__form--container__tablet">
+            <Button
+              handleButtonClick={handleSearchNewSearchRequest}
+              isDisabledState={isDisabled}
+              notDisabledText={"Meet Your Pet Pall"}
+              isDisabledText={"Finding Pet Pall..."}
+              width={200}
+            />
+          </div>
         </div>
 
         <p>🎉 Here are your perfect pet matches! 🐾</p>
@@ -129,7 +140,6 @@ const PetMatchesPage = () => {
         </>
       ) : (
         <section className="PetMatches__petsCard--container">
-         
           <div className="PetMatches__petsCard--container__loading__spinner">
             <PetRecommendationsSpinner />
           </div>
