@@ -24,7 +24,7 @@ const ProfilePage = () => {
   const toast = useToast();
   const { user } = useSelector((state) => state.globalState);
   const dispatch = useDispatch();
-  const [isDisabled, setIsDisabled] = useState(false);
+  const [isDisabled] = useState(false);
   const [adoptionRequests, setAdoptionRequests] = useState([]);
   const [isUpdatingUser, setIsUpdatingUser] = useState(false);
 

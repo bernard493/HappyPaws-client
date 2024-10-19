@@ -8,12 +8,8 @@ const PrivateRoutes = () => {
   if (!authChecked) {
     // Prevent navigation and wait for the auth check to finish
     return null;
-  }
 
-  console.log(
-    "location.pathname + location.search",
-    location.pathname + location.search
-  );
+  }
 
   return isAuthenticated ? (
     <Outlet />

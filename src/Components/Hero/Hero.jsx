@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import "./Hero.scss";
 import SearchInput from "../SearchInput/SearchInput";
-import BlogCarousel from "../BlogCarousel/BlogCarousel";
-import { successfulAdoptedPetsBlogPost, heroTexts } from "../../const/constant";
+import { heroTexts } from "../../const/constant";
 import { useNavigate } from "react-router-dom";
 import Button from "../Button/Button";
 

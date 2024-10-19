@@ -7,7 +7,6 @@ import {
   InputRightElement,
 } from "@chakra-ui/react";
 import Button from "../Button/Button";
-import axios from "axios";
 import { FaCheck } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
@@ -47,6 +46,7 @@ const AdoptionForms = ({ price, petId }) => {
 
     try {
       const { status, data } = await CreateAdoptionRequest(values);
+      console.log('{ status, data } ',{ status, data } );
       const { message } = data;
       if (status === 201) {
         toast({

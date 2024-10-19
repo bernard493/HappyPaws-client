@@ -1,13 +1,11 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import { useJwt } from "react-jwt";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [authChecked, setAuthChecked] = useState(false);
-  const { isExpired } = useJwt(token);
 
   useEffect(() => {
     const storedToken = Cookies.get("token");
@@ -28,10 +26,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   const isAuthenticated = !!token;
-  const isTokenExpired = isExpired;
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, login, logout, authChecked, isTokenExpired }}
+      value={{ isAuthenticated, login, logout, authChecked }}
     >
       {children}
     </AuthContext.Provider>

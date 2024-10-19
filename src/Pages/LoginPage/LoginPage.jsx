@@ -27,7 +27,6 @@ const LoginPage = () => {
   const toast = useToast();
   const navigateToFrom = location.state?.from || "/";
 
-  console.log("navigateToFrom", navigateToFrom);
 
   const validateEmail = () => {
     if (!email) {

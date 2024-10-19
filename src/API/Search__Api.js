@@ -1,20 +1,23 @@
 import ApiManager from "./ApiManager";
-import Cookies from "js-cookie";
+
+
+const axiosInstance = ApiManager();
+
+
+
 
 export const generatePetRecommendations = async (body) => {
-  console.log("body", body);
-
+  console.log('body',body);
   try {
-    const token = Cookies.get("token");
-
-    const response = await ApiManager("/generate-recommendation-breeds", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      data: { searchValue: body },
-    });
+    const response = await axiosInstance.post(
+      "/generate-recommendation-breeds",
+      { searchValue: body },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     return response;
   } catch (error) {

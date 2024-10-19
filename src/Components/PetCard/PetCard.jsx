@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import "./PetCard.scss";
-import { MdFavoriteBorder, MdFavorite } from "react-icons/md";
-import { CiLocationOn } from "react-icons/ci";
 import Button from "../Button/Button";
 
 const PetCard = ({ pet, petId, onOpen }) => {
-  const [isDisabled, setisDisabled] = useState(false);
+  const [isDisabled] = useState(false);
 
   const handleSelectedPet = (petId) => {
     onOpen(petId);

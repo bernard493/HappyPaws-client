@@ -1,32 +1,27 @@
 import React, { useState, useEffect } from "react";
 import "./PetMatchesPage.scss";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useDisclosure } from "@chakra-ui/react";
 import PetDetailsDrawer from "../../Components/PetDetailsDrawer/PetDetailsDrawer";
 import SearchInput from "../../Components/SearchInput/SearchInput";
 import Button from "../../Components/Button/Button";
-import { heroTexts, petsDemoDate } from "../../const/constant";
 import PetCard from "../../Components/PetCard/PetCard";
 import Paginate from "../../Components/ReactPaginate/ReactPaginate";
 import { generatePetRecommendations } from "../../API/Search__Api";
 import { getPetDetailsById } from "../../API/Pets__Api";
-import { useAuth } from "../../CustomHooks/AuthProvider ";
 
 const PetMatchesPage = () => {
-  const { isTokenExpired } = useAuth();
   const location = useLocation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const btnRef = React.useRef();
   const queryParams = new URLSearchParams(location.search);
   const userSearchInput = decodeURIComponent(queryParams.get("search"));
   const { isOpen, onOpen, onClose } = useDisclosure();
-console.log('queryParams',queryParams);
-console.log('userSearchInput',userSearchInput);
   const [searchInput, setSearchInput] = useState("");
-  const [heroText, setHeroText] = useState(heroTexts);
+  // const [heroText, setHeroText] = useState(heroTexts);
   const [isDisabled, setIsDisabled] = useState(false);
   const [allPets, setAllPets] = useState([]);
-  const [itemsPerPage, setItemsPerPage] = useState(20);
+  const [itemsPerPage] = useState(20);
   const [error, setError] = useState(false);
   const [itemOffset, setItemOffset] = useState(0);
   const [selectedPetDetails, setSelectedPetDetails] = useState(null);
@@ -42,30 +37,28 @@ console.log('userSearchInput',userSearchInput);
     const newOffset = (event.selected * itemsPerPage) % allPets.length;
     setItemOffset(newOffset);
   };
-
   // // API Call to get pet details
   useEffect(() => {
-    if (!isTokenExpired) {
-      const getPetsRecommendations = async () => {
-        const { status, data } = await generatePetRecommendations(
-          userSearchInput
-        );
-        if (status === 200) {
-          setAllPets(data.results);
-          setIsLoadingPetDetails(false);
-        }
-      };
-      getPetsRecommendations();
-    } else {
-      navigate("/auth/login");
-    }
+    const getPetsRecommendations = async () => {
+      const { status, data } = await generatePetRecommendations(
+        userSearchInput
+      );
+      if (status === 200) {
+        setAllPets(data.results);
+        setIsLoadingPetDetails(false);
+      }
+    };
+    getPetsRecommendations();
+    
   }, [userSearchInput]);
 
   const fetchPetDetails = async (petId) => {
     try {
       setIsLoadingPetDetails(true);
       const { status, data } = await getPetDetailsById(petId);
+      if (status === 200) {
       setSelectedPetDetails(data);
+      }
     } catch {
       console.log("Error fetching pet details");
     } finally {

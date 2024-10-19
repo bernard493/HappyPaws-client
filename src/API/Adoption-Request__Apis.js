@@ -1,14 +1,15 @@
 import ApiManager from "./ApiManager";
-import Cookies from "js-cookie";
+
+// Call ApiManager to get the axios instance
+const axiosInstance = ApiManager();
+
+
 
 export const GetAdoptionRequestByID = async (requestID) => {
   try {
-    const token = Cookies.get("token");
-    const response = await ApiManager(`/adopter/requests/${requestID}`, {
-      method: "GET",
+    const response = await axiosInstance.get(`/adopter/requests/${requestID}`, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
       },
     });
     return response;
@@ -19,12 +20,9 @@ export const GetAdoptionRequestByID = async (requestID) => {
 
 export const GetAllAdoptionRequest = async () => {
   try {
-    const token = Cookies.get("token");
-    const response = await ApiManager("/adopter/requests", {
-      method: "GET",
+    const response = await axiosInstance.get("/adopter/requests", {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
       },
     });
     return response;
@@ -35,14 +33,10 @@ export const GetAllAdoptionRequest = async () => {
 
 export const CreateAdoptionRequest = async (body) => {
   try {
-    const token = Cookies.get("token");
-    const response = await ApiManager("/adopter/requests", {
-      method: "POST",
+    const response = await axiosInstance.post("/adopter/requests", body, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
       },
-      data: { ...body },
     });
     return response;
   } catch (error) {

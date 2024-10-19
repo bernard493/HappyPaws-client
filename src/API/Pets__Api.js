@@ -1,15 +1,16 @@
 import ApiManager from "./ApiManager";
-import Cookies from "js-cookie";
+
+
+// Call ApiManager to get the axios instance
+const axiosInstance = ApiManager(); 
+
 
 export const getPetDetailsById = async (petID) => {
   try {
-    const token = Cookies.get("token");
 
-    const response = await ApiManager(`/pets/${petID}`, {
-      method: "GET",
+    const response = await axiosInstance.get(`/pets/${petID}`, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
       },
     });
 
