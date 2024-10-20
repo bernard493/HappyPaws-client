@@ -1,12 +1,21 @@
 @use "../../styles/partials/mixin" as *;
 @use "../../styles/partials/variables" as *;
 .PetMatches {
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  height: 75dvh; 
   &__form--container {
     margin: 4rem 1rem 0 1rem;
     border-radius: 1rem;
-    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     text-align: center;
+    padding: 0 2rem;
     @include tablet {
       padding: 2rem;
       margin: 4rem 2rem;
@@ -64,7 +73,16 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding-top: 3rem;
+      padding: 3rem 0;
     }
+  }
+  &__loading--container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    // height: 70vh; 
+    padding: 0 2rem;
   }
 }

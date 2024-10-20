@@ -4,6 +4,7 @@
 .footer-section {
   background-color: $color-primary-black;
   color: $color-primary-white;
+  flex-shrink: 0;
   padding: 1rem;
   @include tablet {
     padding: 4rem 2rem;

@@ -1,11 +1,12 @@
 @use "./variables" as *;
 
 body {
-  font-family: "Cera Pro", sans-serif;
+  // font-family: "Cera Pro", sans-serif;
   font-size: 16px;
   color: $color-primary-black;
   line-height: 1.5;
   margin: 0;
+  height: 100%;
   padding: 0;
 }
 

@@ -4,6 +4,7 @@ import SearchInput from "../SearchInput/SearchInput";
 import { heroTexts } from "../../const/constant";
 import { useNavigate } from "react-router-dom";
 import Button from "../Button/Button";
+import TextAnimation from "../TextAnimation/TextAnimation";
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -11,7 +12,6 @@ const Hero = () => {
   const [searchInput, setSearchInput] = useState("");
   const [heroText, setHeroText] = useState(heroTexts);
   const [isDisabled, setIsDisabled] = useState(false);
-  // const [blogPosts, setBlogPosts] = useState(successfulAdoptedPetsBlogPost);
   const [error, setError] = useState(false);
 
   const handleSearchNavigation = () => {
@@ -27,7 +27,8 @@ const Hero = () => {
     <div className="Hero">
       <section className="Hero__text--container">
         <h1 className="Hero__title">I am Pawsist, Your AI Assistance</h1>
-        <h2 className="Hero__text">{heroText[generateRandomIndex]}</h2>
+        {/* <h2 className="Hero__text">{heroText[generateRandomIndex]}</h2> */}
+        <TextAnimation text={heroText} />
         <div className="Hero__input__section--container">
           <div>
             <SearchInput

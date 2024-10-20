@@ -5,8 +5,19 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    // min-height:100dvh; /* This makes sure the app takes at least the full viewport height */
     @include xxlDesktop{
         padding: 0 25vw;
     }
     background-color: #FFFFFF;
 }
+
+
+
+  main {
+    flex-grow: 1; /* This will make the main content (AppStack) take up the remaining space */
+  }
+  
+  footer {
+    flex-shrink: 0; /* This ensures the footer stays at the bottom */
+  }

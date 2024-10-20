@@ -206,10 +206,7 @@ const PetDetailsDrawer = ({
               </section>
             </DrawerBody>
 
-            <DrawerFooter>
-              {/* <button variant="outline" mr={3} onClick={onClose}>
-                  Cancel
-                </button> */}
+            <DrawerFooter pb={10}>
               <Button
                 handleButtonClick={handlePetAdoptionNavigationRequest}
                 isDisabledState={isDisabled}

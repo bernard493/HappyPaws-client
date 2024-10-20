@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./PetMatchesPage.scss";
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useDisclosure } from "@chakra-ui/react";
 import PetDetailsDrawer from "../../Components/PetDetailsDrawer/PetDetailsDrawer";
 import SearchInput from "../../Components/SearchInput/SearchInput";
@@ -9,17 +9,18 @@ import PetCard from "../../Components/PetCard/PetCard";
 import Paginate from "../../Components/ReactPaginate/ReactPaginate";
 import { generatePetRecommendations } from "../../API/Search__Api";
 import { getPetDetailsById } from "../../API/Pets__Api";
-import PetRecommendationsSpinner from "../../Components/PetRecommendationsSpinner/PetRecommendationsSpinner";
+import LottieSpinner from "../../Components/LottieSpinner/LottieSpinner";
+import loadingLottie from "../../assets/lottie/Animation - 1729377053863.json";
+import TextAnimation from "../../Components/TextAnimation/TextAnimation";
 
 const PetMatchesPage = () => {
   const location = useLocation();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const btnRef = React.useRef();
   const queryParams = new URLSearchParams(location.search);
   const userSearchInput = decodeURIComponent(queryParams.get("search"));
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [searchInput, setSearchInput] = useState("");
-  // const [heroText, setHeroText] = useState(heroTexts);
   const [isDisabled, setIsDisabled] = useState(false);
   const [allPets, setAllPets] = useState([]);
   const [itemsPerPage] = useState(20);
@@ -48,6 +49,8 @@ const PetMatchesPage = () => {
       if (status === 200) {
         setAllPets(data.results);
         setIsLoadingPetDetails(false);
+      } else if (status === 401) {
+        navigate("/auth/login");
       }
     } catch (error) {
       console.log("Error fetching pet Recommendation");
@@ -87,10 +90,12 @@ const PetMatchesPage = () => {
   };
 
   return (
-    <section>
+    <section className="PetMatches">
+        {!isLoadingPetRecommendations ? (
+        <>
       <section className="PetMatches__form--container">
         <h1>Want to be more specific </h1>
-        <div className="PetMatches__form" >
+        <div className="PetMatches__form">
           <div className="PetMatches__form__input--container">
             <SearchInput
               isError={error}
@@ -117,11 +122,8 @@ const PetMatchesPage = () => {
             />
           </div>
         </div>
-
-        <p>🎉 Here are your perfect pet matches! 🐾</p>
       </section>
-      {!isLoadingPetRecommendations ? (
-        <>
+    
           <section className="PetMatches__petsCard--container">
             {currentPetItems.map((pet) => {
               return (
@@ -139,9 +141,23 @@ const PetMatchesPage = () => {
           </div>
         </>
       ) : (
-        <section className="PetMatches__petsCard--container">
+        <section className="PetMatches__loading--container">
           <div className="PetMatches__petsCard--container__loading__spinner">
-            <PetRecommendationsSpinner />
+            <TextAnimation
+              text={[
+                "🎉 Finding your new best friend... just a moment! 🐾",
+                1000,
+                "🎉 Hold on, we’re sniffing out your ideal pet! 🐾",
+                1000,
+                "🎉 We’re barking up the right tree! Your perfect pet is on the way.. 🐾",
+                1000,
+                "🎉 Get ready to meet your new fur-ever friend! We’re almost there... 🐾",
+                1000,
+                "🎉 Hold tight! We're fetching the cutest companions for you... 🐾",
+                1000,
+              ]}
+            />
+            <LottieSpinner LottieFile={loadingLottie} />
           </div>
         </section>
       )}

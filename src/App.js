@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.scss";
 import { AuthProvider } from "./CustomHooks/AuthProvider ";
 import Layouts from "./StackNavigation/Layouts/Layouts";
 import { ChakraProvider } from "@chakra-ui/react";
