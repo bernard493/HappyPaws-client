@@ -13,7 +13,7 @@ import {
   Radio,
   useToast,
 } from "@chakra-ui/react";
-import { useNavigate, Link, useLocation } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { registerUser } from "../../API/User__Api";
 import Button from "../../Components/Button/Button";
 
@@ -30,11 +30,8 @@ const SignupPage = () => {
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [isDisabled, setIsDisabled] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation();
   const toast = useToast();
-  const redirectTo = sessionStorage.getItem("redirectTo");
 
-  console.log("navigateToFrom from signup", redirectTo);
 
   const validateEmail = () => {
     if (!email) {

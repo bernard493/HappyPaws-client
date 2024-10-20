@@ -8,7 +8,6 @@ import {
   DrawerContent,
   DrawerCloseButton,
   Box,
-  Text,
   FormLabel,
   Input,
   FormControl,

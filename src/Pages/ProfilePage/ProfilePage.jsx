@@ -19,11 +19,14 @@ import { GetAllAdoptionRequest } from "../../API/Adoption-Request__Apis";
 import { useSelector, useDispatch } from "react-redux";
 import { UpdateUserProfile } from "../../API/User__Api";
 import { setUserGlobalState } from "../../store/globalStateSlice";
+import DeleteProfileModel from "../../Components/DeleteProfileModel/DeleteProfileModel";
+import { useNavigate } from "react-router-dom";
 
 const ProfilePage = () => {
   const toast = useToast();
   const { user } = useSelector((state) => state.globalState);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isDisabled] = useState(false);
   const [adoptionRequests, setAdoptionRequests] = useState([]);
   const [isUpdatingUser, setIsUpdatingUser] = useState(false);
@@ -61,6 +64,8 @@ const ProfilePage = () => {
           isClosable: true,
         });
         onClose();
+      } else if (status === 401) {
+        navigate("/auth/login");
       } else if (status === 400) {
         toast({
           position: "top-right",
@@ -97,12 +102,15 @@ const ProfilePage = () => {
               </div>
             </div>
           </div>
-          <Button
-            handleButtonClick={handleEditProfile}
-            isDisabledState={isDisabled}
-            notDisabledText={"Edit"}
-            width={100}
-          />
+          <div className="profile-page__CTA--container">
+            <Button
+              handleButtonClick={handleEditProfile}
+              isDisabledState={isDisabled}
+              notDisabledText={"Edit"}
+              width={100}
+            />
+            <DeleteProfileModel />
+          </div>
         </div>
 
         <div className="adoption-request__container">

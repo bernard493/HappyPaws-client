@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./PetMatchesPage.scss";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import {  useLocation, useNavigate } from "react-router-dom";
 import { useDisclosure } from "@chakra-ui/react";
 import PetDetailsDrawer from "../../Components/PetDetailsDrawer/PetDetailsDrawer";
 import SearchInput from "../../Components/SearchInput/SearchInput";
@@ -21,7 +21,7 @@ const PetMatchesPage = () => {
   const userSearchInput = decodeURIComponent(queryParams.get("search"));
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [searchInput, setSearchInput] = useState("");
-  const [isDisabled, setIsDisabled] = useState(false);
+  const [isDisabled] = useState(false);
   const [allPets, setAllPets] = useState([]);
   const [itemsPerPage] = useState(20);
   const [error, setError] = useState(false);

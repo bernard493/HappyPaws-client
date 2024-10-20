@@ -1,4 +1,4 @@
-import { Flex, Avatar, Box, Text, Badge } from "@chakra-ui/react";
+import { Flex, Avatar, Box, Text } from "@chakra-ui/react";
 import React from "react";
 import "./AdoptionRequestPage.scss";
 import { useLocation } from "react-router-dom";
@@ -10,7 +10,6 @@ import { useSelector } from "react-redux";
 const AdoptionRequestPage = () => {
   const { selectedPetForAdoption } = useSelector((state) => state.globalState);
   const location = useLocation();
-  const [pet, setPet] = React.useState({});
   const { petId } = location.state;
 
 

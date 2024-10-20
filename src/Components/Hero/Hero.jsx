@@ -8,9 +8,8 @@ import TextAnimation from "../TextAnimation/TextAnimation";
 
 const Hero = () => {
   const navigate = useNavigate();
-  const [generateRandomIndex, setGenerateRandomIndex] = useState(0);
   const [searchInput, setSearchInput] = useState("");
-  const [heroText, setHeroText] = useState(heroTexts);
+  const [heroText] = useState(heroTexts);
   const [isDisabled, setIsDisabled] = useState(false);
   const [error, setError] = useState(false);
 
