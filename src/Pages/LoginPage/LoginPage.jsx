@@ -11,7 +11,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useAuth } from "../../CustomHooks/AuthProvider ";
-import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { userLogin } from "../../API/User__Api";
 import Button from "../../Components/Button/Button";
 
@@ -26,7 +26,6 @@ const LoginPage = () => {
   const location = useLocation();
   const toast = useToast();
   const redirectToAfterAuth = location.state?.from || "/";
-  console.log("redirectToAfterAuth", redirectToAfterAuth);
 
   const validateEmail = () => {
     if (!email) {
@@ -74,7 +73,7 @@ const LoginPage = () => {
 
           // Navigate back to original page (or home if not available)
           const redirectTo = sessionStorage.getItem("redirectTo");
-          navigate(redirectTo);
+          navigate(redirectTo || "/");
           sessionStorage.removeItem("redirectTo"); // Optionally remove the item once used
         } else if (status === 401) {
           const { message } = data;

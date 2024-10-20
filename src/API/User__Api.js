@@ -55,6 +55,20 @@ export const GetUserProfile = async () => {
   }
 };
 
+export const DeleteUserProfile = async () => {
+  try {
+    const response = await axiosInstance.delete("/profile", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+
 export const UpdateUserProfileAvatar = async (body) => {
   try {
     const FormData = global.FormData;

@@ -36,6 +36,16 @@
       gap: 0.5rem;
     }
   }
+  &__CTA--container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    @include tablet {
+      justify-content: end;
+    }
+  }
 }
 
 .adoption-request__container {

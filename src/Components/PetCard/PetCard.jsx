@@ -10,7 +10,6 @@ const PetCard = ({ pet, petId, onOpen }) => {
   const handleSelectedPet = (petId) => {
     onOpen(petId);
   };
-  console.log("pet", pet);
 
   return (
     <div className="petCard">
