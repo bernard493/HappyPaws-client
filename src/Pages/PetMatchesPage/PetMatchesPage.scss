@@ -6,7 +6,6 @@
   align-items: center;
   flex-direction: column;
   text-align: center;
-  height: 75dvh; 
   &__form--container {
     margin: 4rem 1rem 0 1rem;
     border-radius: 1rem;
@@ -16,6 +15,8 @@
     flex-direction: column;
     text-align: center;
     padding: 0 2rem;
+    width: 100%;
+
     @include tablet {
       padding: 2rem;
       margin: 4rem 2rem;
@@ -43,6 +44,10 @@
     gap: 1rem;
     margin-top: 2rem;
     padding-bottom: 2rem;
+    width: 100%;
+    @include tablet {
+      width: 80%;
+    }
 
     &__input--container {
       width: 100%;
@@ -82,7 +87,7 @@
     align-items: center;
     flex-direction: column;
     text-align: center;
-    // height: 70vh; 
+    height: 70vh;
     padding: 0 2rem;
   }
 }

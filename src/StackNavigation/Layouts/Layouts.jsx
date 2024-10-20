@@ -29,7 +29,7 @@ const Layouts = () => {
 
   return (
     <Router>
-      <Grid
+      {/* <Grid
         templateAreas={`"header header"
                   "main main"
                   "footer footer"`}
@@ -39,17 +39,17 @@ const Layouts = () => {
         // position={"absolute"}
 
       >
-        <GridItem area={"header"}>
+        <GridItem area={"header"}> */}
           <Header />
-        </GridItem>
+        {/* </GridItem>
 
-        <GridItem pt={20} area={"main"}>
+        <GridItem pt={20} area={"main"}> */}
           <AppStack />
-        </GridItem>
-        <GridItem pt={5} bottom={0} position={"relative"} area={"footer"}>
+        {/* </GridItem>
+        <GridItem pt={5} bottom={0} position={"relative"} area={"footer"}> */}
           <Footer />
-        </GridItem>
-      </Grid>
+        {/* </GridItem>
+      </Grid> */}
     </Router>
   );
 };

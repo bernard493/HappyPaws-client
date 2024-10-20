@@ -32,8 +32,11 @@
 
   &__info {
     padding-top: 1rem;
-    &--text{
-      font-weight: 900;
+    &--name{
+      font-weight: bold;
+      font-size: 0.8rem;
+      color: $color-primary-black;
+      align-self: left;
     }
 
     &--name-container {
@@ -71,6 +74,7 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-size: 0.8rem;
   }
 
   &__bt--container {

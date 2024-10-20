@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./PetCard.scss";
+import { IoMdMale, IoMdFemale } from "react-icons/io";
 
 import Button from "../Button/Button";
 
@@ -9,6 +10,7 @@ const PetCard = ({ pet, petId, onOpen }) => {
   const handleSelectedPet = (petId) => {
     onOpen(petId);
   };
+  console.log("pet", pet);
 
   return (
     <div className="petCard">
@@ -16,7 +18,8 @@ const PetCard = ({ pet, petId, onOpen }) => {
         <img src={pet.images[0]} alt={pet.name} className="petCard__img" />
         <div className="petCard__info">
           <div className="petCard__info--name-container">
-            <h2 className="petCard__info--name">{pet.name}</h2>
+            <p className="petCard__info--name">{pet.name}</p>
+            {pet.gender === "female" ? <IoMdFemale size={20} /> : <IoMdMale size={20} />}
           </div>
 
           <div className="petCard__description--container">

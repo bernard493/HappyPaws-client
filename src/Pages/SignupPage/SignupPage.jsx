@@ -13,7 +13,7 @@ import {
   Radio,
   useToast,
 } from "@chakra-ui/react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { registerUser } from "../../API/User__Api";
 import Button from "../../Components/Button/Button";
 
@@ -30,7 +30,11 @@ const SignupPage = () => {
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [isDisabled, setIsDisabled] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   const toast = useToast();
+  const redirectTo = sessionStorage.getItem("redirectTo");
+
+  console.log("navigateToFrom from signup", redirectTo);
 
   const validateEmail = () => {
     if (!email) {
@@ -46,9 +50,10 @@ const SignupPage = () => {
   };
   const validateUserName = () => {
     if (!userName) {
-      setUserNameError("UserName is required");
+      setUserNameError("User Name is required");
       return false;
     }
+    setUserNameError("");
     return true;
   };
   const validatePassword = () => {
@@ -74,6 +79,7 @@ const SignupPage = () => {
   const validateConfirmPassword = () => {
     if (!confirmPassword) {
       setConfirmPasswordError("Confirm Password is required");
+
       return false;
     } else {
       setConfirmPasswordError("");
@@ -83,6 +89,12 @@ const SignupPage = () => {
 
   const validatePasswordAndConfirmPasswordAreSame = () => {
     if (password !== confirmPassword) {
+      toast({
+        position: "top-right",
+        title: "Password and Confirm Password are not the  same",
+        status: "info",
+        isClosable: true,
+      });
       return false;
     }
     return true;
@@ -93,6 +105,7 @@ const SignupPage = () => {
     try {
       setIsDisabled(true);
       if (
+        validateUserName() &&
         validateEmail() &&
         validatePassword() &&
         validatePasswordAndConfirmPasswordAreSame()
@@ -112,7 +125,6 @@ const SignupPage = () => {
             isClosable: true,
           });
           navigate("/auth/login");
-          
         } else if (status === 400) {
           toast({
             position: "top-right",

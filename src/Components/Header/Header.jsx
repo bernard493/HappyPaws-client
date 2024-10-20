@@ -3,6 +3,7 @@ import "./Header.scss";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Button,
+  IconButton,
   Menu,
   MenuButton,
   MenuItem,
@@ -10,20 +11,12 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { MdCall } from "react-icons/md";
-import { Avatar } from "@chakra-ui/react";
 import { useAuth } from "../../CustomHooks/AuthProvider ";
-import { useSelector } from "react-redux";
-
+import { RiMenu5Line } from "react-icons/ri";
 const Header = () => {
-  const { user } = useSelector((state) => state.globalState);
   const navigate = useNavigate();
-  const { logout, isAuthenticated  } = useAuth();
+  const { logout, isAuthenticated } = useAuth();
 
-
-
-
-
-  
   const handleSignOut = () => {
     logout();
     navigate("/");
@@ -53,20 +46,26 @@ const Header = () => {
           </Button>
           {isAuthenticated ? (
             <Menu isLazy>
-              <MenuButton>
-                <Avatar size="sm" name={user.username} src={user.avatar} />
-              </MenuButton>
+              <MenuButton
+                as={IconButton}
+                aria-label="Options"
+                // variant="outline"
+                icon={<RiMenu5Line color="black"/>}
+              />
+
               <MenuList>
                 {/* MenuItems are not rendered unless Menu is open */}
-                <MenuItem color={"black"} onClick={() => navigate("/profile")}>
-                  My Profile
+                <MenuItem onClick={() => navigate("/profile")}>
+                  <Text color={"black"}>My Profile</Text>
                 </MenuItem>
-                <MenuItem color={"black"}  onClick={handleSignOut}>Sign Out</MenuItem>
+                <MenuItem onClick={handleSignOut}>
+                  <Text color={"black"}>Sign Out</Text>
+                </MenuItem>
               </MenuList>
             </Menu>
           ) : (
             <Link to="/auth/login">
-              <Text>Login or Sign Up</Text>
+              <Text>Login</Text>
             </Link>
           )}
         </div>

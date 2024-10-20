@@ -18,20 +18,14 @@ import {
 } from "@chakra-ui/react";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { MdSaveAlt } from "react-icons/md";
-
+import { IoMdMale, IoMdFemale } from "react-icons/io";
 import useWindowWide from "../../CustomHooks/useWindowWide ";
 import Button from "../Button/Button";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setSelectedPetForAdoptionState } from "../../store/globalStateSlice";
 
-const PetDetailsDrawer = ({
-  isOpen,
-  onClose,
-  btnRef,
-  petDetails,
-  isLoading,
-}) => {
+const PetDetailsDrawer = ({ isOpen, onClose, btnRef, petDetails }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const wide = useWindowWide(600);
@@ -171,16 +165,26 @@ const PetDetailsDrawer = ({
                   <div className="pet__Details__information">
                     <div className="">
                       <Text fontSize="sm">Sex</Text>
-                      <Text fontWeight="bold">{petDetails.gender}</Text>
+                      {petDetails.gender === "female" ? (
+                        <IoMdFemale size={20} />
+                      ) : (
+                        <IoMdMale size={20} />
+                      )}
                     </div>
                     <div className="">
-                      <Text fontSize="sm">Size</Text>
-                      <Text fontWeight="bold">{petDetails.size}</Text>
+                      <Text fontSize="sm">Size</Text> 
+                      {petDetails.size === "small" ? (
+                        <Text fontWeight="bold">S</Text>
+                      ) : (
+                        <Text fontWeight="bold">L</Text>
+                      )}
                     </div>
                     <div className="">
                       <Text fontSize="sm">Age</Text>
                       <Text fontWeight="bold">{petDetails.age}</Text>
                     </div>
+                  </div>
+                  <div className="pet__Details__information">
                     <div className="">
                       <Text fontSize="sm">Breed</Text>
                       <Text fontWeight="bold">{petDetails.breed}</Text>

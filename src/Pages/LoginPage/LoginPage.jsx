@@ -25,8 +25,8 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const toast = useToast();
-  const navigateToFrom = location.state?.from || "/";
-
+  const redirectToAfterAuth = location.state?.from || "/";
+  console.log("redirectToAfterAuth", redirectToAfterAuth);
 
   const validateEmail = () => {
     if (!email) {
@@ -73,7 +73,9 @@ const LoginPage = () => {
           });
 
           // Navigate back to original page (or home if not available)
-          navigate(navigateToFrom, { replace: true });
+          const redirectTo = sessionStorage.getItem("redirectTo");
+          navigate(redirectTo);
+          sessionStorage.removeItem("redirectTo"); // Optionally remove the item once used
         } else if (status === 401) {
           const { message } = data;
           toast({
@@ -101,6 +103,11 @@ const LoginPage = () => {
     } finally {
       setIsDisabled(false);
     }
+  };
+
+  const navigateToSignUp = () => {
+    sessionStorage.setItem("redirectTo", redirectToAfterAuth);
+    navigate("/auth/create-account");
   };
 
   return (
@@ -157,9 +164,7 @@ const LoginPage = () => {
             </div>
           </form>
           <Box textAlign="center" mt={4}>
-            <Link to={"/auth/create-account"}>
-              <Text>New HERE? Sing up Now</Text>
-            </Link>
+            <Text onClick={navigateToSignUp}>New HERE? Sing up Now</Text>
           </Box>
         </Box>
       </Box>
