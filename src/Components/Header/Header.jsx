@@ -54,14 +54,14 @@ const Header = () => {
           {isAuthenticated ? (
             <Menu isLazy>
               <MenuButton>
-                <Avatar size="sm" name={"user.username"} src={user.avatar} />
+                <Avatar size="sm" name={user.username} src={user.avatar} />
               </MenuButton>
               <MenuList>
                 {/* MenuItems are not rendered unless Menu is open */}
-                <MenuItem onClick={() => navigate("/profile")}>
+                <MenuItem color={"black"} onClick={() => navigate("/profile")}>
                   My Profile
                 </MenuItem>
-                <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
+                <MenuItem color={"black"}  onClick={handleSignOut}>Sign Out</MenuItem>
               </MenuList>
             </Menu>
           ) : (
