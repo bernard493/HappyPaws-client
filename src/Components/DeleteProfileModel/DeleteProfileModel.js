@@ -37,7 +37,9 @@ const DeleteProfileModel = () => {
   };
   return (
     <>
-      <MdDelete color="red" size={40} onClick={onOpen} />
+      <Button border="2px" borderColor="red">
+        <MdDelete color="gray" size={20} onClick={onOpen} />
+      </Button>
       <Modal finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>

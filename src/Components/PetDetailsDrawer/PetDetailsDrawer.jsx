@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./PetDetailsDrawer.scss";
 import {
   Drawer,
@@ -15,6 +15,10 @@ import {
   Box,
   Text,
   Badge,
+  Skeleton,
+  SkeletonCircle,
+  SkeletonText,
+  Stack,
 } from "@chakra-ui/react";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { MdSaveAlt } from "react-icons/md";
@@ -24,51 +28,68 @@ import Button from "../Button/Button";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setSelectedPetForAdoptionState } from "../../store/globalStateSlice";
+import { getPetDetailsById } from "../../API/Pets__Api";
 
-const PetDetailsDrawer = ({ isOpen, onClose, btnRef, petDetails }) => {
+const PetDetailsDrawer = ({ isOpen, onClose, btnRef, petID }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const wide = useWindowWide(600);
   const [isDisabled, setIsDisabled] = useState(false);
+  const [selectedPetDetails, setSelectedPetDetails] = useState(null);
+  const [isLoadingPetDetails, setIsLoadingPetDetails] = useState(false);
+
+  useEffect(() => {
+    const fetchPetDetails = async () => {
+      try {
+        setIsLoadingPetDetails(true);
+        const { status, data } = await getPetDetailsById(petID);
+        if (status === 200) {
+          setSelectedPetDetails(data);
+        }
+      } catch {
+        console.log("Error fetching pet details");
+      } finally {
+        setIsLoadingPetDetails(false);
+      }
+    };
+    fetchPetDetails();
+  }, [petID]);
 
   const handlePetAdoptionNavigationRequest = () => {
     setIsDisabled(true);
     dispatch(
       setSelectedPetForAdoptionState({
-        petName: petDetails.name,
-        image: petDetails.images[0],
-        breed: petDetails.breed,
-        price: petDetails.price,
-        shelterName: petDetails.shelter.name,
-        shelterAddress: petDetails.shelter.address,
-        shelterAvatar: petDetails.shelter.image,
+        petName: selectedPetDetails.name,
+        image: selectedPetDetails.images[0],
+        breed: selectedPetDetails.breed,
+        price: selectedPetDetails.price,
+        shelterName: selectedPetDetails.shelter.name,
+        shelterAddress: selectedPetDetails.shelter.address,
+        shelterAvatar: selectedPetDetails.shelter.image,
       })
     );
-    navigate(`/adoption-request/${petDetails.name}`, {
-      state: {
-        petId: petDetails.id,
-      },
+    navigate(`/adoption-request/${selectedPetDetails.name}`, {
+      state: { petId: petID },
     });
-    setIsDisabled(false);
   };
 
   return (
-    <>
-      {petDetails && (
-        <Drawer
-          isOpen={isOpen}
-          placement="right"
-          onClose={onClose}
-          finalFocusRef={btnRef}
-          size={"xl"}
-        >
-          <DrawerOverlay />
-          <DrawerContent>
-            <DrawerCloseButton />
+    <Drawer
+      isOpen={isOpen}
+      placement="right"
+      onClose={onClose}
+      finalFocusRef={btnRef}
+      size={"xl"}
+    >
+      <DrawerOverlay />
+      <DrawerContent>
+        <DrawerCloseButton />
+        {!isLoadingPetDetails && selectedPetDetails ? (
+          <>
             <DrawerHeader>
               <div className="pet__Details__header--container">
                 <h1 className="pet__Details__header--title">
-                  {petDetails.name}
+                  {selectedPetDetails.name}
                 </h1>
                 <div className="pet__Details__header__share-CTA__container">
                   <div className="pet__Details__header__share-CTA">
@@ -94,8 +115,8 @@ const PetDetailsDrawer = ({ isOpen, onClose, btnRef, petDetails }) => {
                   >
                     <GridItem borderRadius={10} rowSpan={2} colSpan={3}>
                       <img
-                        src={petDetails.images[0]}
-                        alt={petDetails.name}
+                        src={selectedPetDetails.images[0]}
+                        alt={selectedPetDetails.name}
                         className="pet__Details--img"
                       />
                     </GridItem>
@@ -105,8 +126,8 @@ const PetDetailsDrawer = ({ isOpen, onClose, btnRef, petDetails }) => {
                       h={wide ? "200px" : ""}
                     >
                       <img
-                        src={petDetails.images[1]}
-                        alt={petDetails.name}
+                        src={selectedPetDetails.images[1]}
+                        alt={selectedPetDetails.name}
                         className="pet__Details--img"
                       />
                     </GridItem>
@@ -116,8 +137,8 @@ const PetDetailsDrawer = ({ isOpen, onClose, btnRef, petDetails }) => {
                       h={wide ? "200px" : ""}
                     >
                       <img
-                        src={petDetails.images[2]}
-                        alt={petDetails.name}
+                        src={selectedPetDetails.images[2]}
+                        alt={selectedPetDetails.name}
                         className="pet__Details--img"
                       />
                     </GridItem>
@@ -127,8 +148,8 @@ const PetDetailsDrawer = ({ isOpen, onClose, btnRef, petDetails }) => {
                       h={wide ? "200px" : ""}
                     >
                       <img
-                        src={petDetails.images[0]}
-                        alt={petDetails.name}
+                        src={selectedPetDetails.images[0]}
+                        alt={selectedPetDetails.name}
                         className="pet__Details--img"
                       />
                     </GridItem>
@@ -138,66 +159,68 @@ const PetDetailsDrawer = ({ isOpen, onClose, btnRef, petDetails }) => {
               <section className="pet__Details__container">
                 <div className="pet__Details__container--shelter">
                   <Flex>
-                    <Avatar src={petDetails.shelter.image} />
+                    <Avatar src={selectedPetDetails?.shelter?.image} />
                     <Box ml="3">
                       <Text fontWeight="bold">
-                        {petDetails.shelter.name}
+                        {selectedPetDetails?.shelter?.name}
                         <Badge
                           ml="1"
                           colorScheme={
-                            petDetails.shelter.status === 1 ? "green" : "red"
+                            selectedPetDetails?.shelter?.status === 1
+                              ? "green"
+                              : "red"
                           }
                         >
-                          {petDetails.shelter.status === 1
+                          {selectedPetDetails?.shelter?.status === 1
                             ? "active"
                             : "not active "}
                         </Badge>
                       </Text>
-                      <Text fontSize="sm">{petDetails.shelter.address}</Text>
+                      <Text fontSize="sm">
+                        {selectedPetDetails?.shelter?.address}
+                      </Text>
                     </Box>
                   </Flex>
                   <div className="">
-                    <Text fontSize="">Adoption Price</Text>
-                    <Text fontWeight="bold">£ {petDetails.price}</Text>
+                    <Text fontSize="small">Adoption Price</Text>
+                    <Text fontWeight="bold">£ {selectedPetDetails.price}</Text>
                   </div>
                 </div>
                 <div className="pet__Details__information--container">
                   <div className="pet__Details__information">
                     <div className="">
                       <Text fontSize="sm">Sex</Text>
-                      {petDetails.gender === "female" ? (
+                      {selectedPetDetails.gender === "female" ? (
                         <IoMdFemale size={20} />
                       ) : (
                         <IoMdMale size={20} />
                       )}
                     </div>
                     <div className="">
-                      <Text fontSize="sm">Size</Text> 
-                      {petDetails.size === "small" ? (
-                        <Text fontWeight="bold">S</Text>
-                      ) : (
-                        <Text fontWeight="bold">L</Text>
-                      )}
+                      <Text fontSize="sm">Size</Text>
+                      <Text fontWeight="bold">{selectedPetDetails.size}</Text>
                     </div>
                     <div className="">
                       <Text fontSize="sm">Age</Text>
-                      <Text fontWeight="bold">{petDetails.age}</Text>
+                      <Text fontWeight="bold">{selectedPetDetails.age}</Text>
                     </div>
                   </div>
                   <div className="pet__Details__information">
                     <div className="">
                       <Text fontSize="sm">Breed</Text>
-                      <Text fontWeight="bold">{petDetails.breed}</Text>
+                      <Text fontWeight="bold">{selectedPetDetails.breed}</Text>
                     </div>
                     <div>
                       <Text fontSize="sm">Vaccine Status</Text>
                       <Badge
                         ml="1"
                         colorScheme={
-                          petDetails.vaccineStatus === 1 ? "green" : "red"
+                          selectedPetDetails.vaccineStatus === 1
+                            ? "green"
+                            : "red"
                         }
                       >
-                        {petDetails.vaccineStatus === 1
+                        {selectedPetDetails.vaccineStatus === 1
                           ? "active"
                           : "not active "}
                       </Badge>
@@ -205,7 +228,7 @@ const PetDetailsDrawer = ({ isOpen, onClose, btnRef, petDetails }) => {
                   </div>
 
                   <h3>Description</h3>
-                  <p>{petDetails.description}</p>
+                  <p>{selectedPetDetails.description}</p>
                 </div>
               </section>
             </DrawerBody>
@@ -218,10 +241,40 @@ const PetDetailsDrawer = ({ isOpen, onClose, btnRef, petDetails }) => {
                 isDisabledText={" "}
               />
             </DrawerFooter>
-          </DrawerContent>
-        </Drawer>
-      )}
-    </>
+          </>
+        ) : (
+          <Stack p={50}>
+            <Box padding="6" boxShadow="lg" bg="white">
+              <SkeletonCircle size="10" />
+              <SkeletonText
+                mt="4"
+                noOfLines={4}
+                spacing="4"
+                skeletonHeight="2"
+              />
+            </Box>
+            <Box padding="6" boxShadow="lg" bg="white">
+              <SkeletonCircle size="10" />
+              <SkeletonText
+                mt="4"
+                noOfLines={4}
+                spacing="4"
+                skeletonHeight="2"
+              />
+            </Box>
+            <Box padding="6" boxShadow="lg" bg="white">
+              <SkeletonCircle size="10" />
+              <SkeletonText
+                mt="4"
+                noOfLines={4}
+                spacing="4"
+                skeletonHeight="2"
+              />
+            </Box>
+          </Stack>
+        )}
+      </DrawerContent>
+    </Drawer>
   );
 };
 

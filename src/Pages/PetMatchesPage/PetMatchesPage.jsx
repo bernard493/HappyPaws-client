@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./PetMatchesPage.scss";
-import {  useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDisclosure } from "@chakra-ui/react";
 import PetDetailsDrawer from "../../Components/PetDetailsDrawer/PetDetailsDrawer";
 import SearchInput from "../../Components/SearchInput/SearchInput";
@@ -26,8 +26,7 @@ const PetMatchesPage = () => {
   const [itemsPerPage] = useState(20);
   const [error, setError] = useState(false);
   const [itemOffset, setItemOffset] = useState(0);
-  const [selectedPetDetails, setSelectedPetDetails] = useState(null);
-  const [isLoadingPetDetails, setIsLoadingPetDetails] = useState(false);
+  const [selectedPetID, setSelectedPetID] = useState("");
   const [isLoadingPetRecommendations, setIsLoadingPetRecommendations] =
     useState(false);
 
@@ -46,9 +45,9 @@ const PetMatchesPage = () => {
     try {
       setIsLoadingPetRecommendations(true);
       const { status, data } = await generatePetRecommendations(searchValue);
+      console.log('data',data);
       if (status === 200) {
         setAllPets(data.results);
-        setIsLoadingPetDetails(false);
       } else if (status === 401) {
         navigate("/auth/login");
       }
@@ -63,23 +62,9 @@ const PetMatchesPage = () => {
     getPetsRecommendations(userSearchInput);
   }, [userSearchInput]);
 
-  const fetchPetDetails = async (petId) => {
-    try {
-      setIsLoadingPetDetails(true);
-      const { status, data } = await getPetDetailsById(petId);
-      if (status === 200) {
-        setSelectedPetDetails(data);
-      }
-    } catch {
-      console.log("Error fetching pet details");
-    } finally {
-      setIsLoadingPetDetails(false);
-    }
-  };
-
   //   get get selected pet and open drawer
   const handleOpenPetDetailsDrawer = (petId) => {
-    fetchPetDetails(petId);
+    setSelectedPetID((prev) => petId);
     onOpen();
   };
 
@@ -91,39 +76,39 @@ const PetMatchesPage = () => {
 
   return (
     <section className="PetMatches">
-        {!isLoadingPetRecommendations ? (
+      {!isLoadingPetRecommendations ? (
         <>
-      <section className="PetMatches__form--container">
-        <h1>Want to be more specific </h1>
-        <div className="PetMatches__form">
-          <div className="PetMatches__form__input--container">
-            <SearchInput
-              isError={error}
-              setIsError={setError}
-              setValue={setSearchInput}
-              placeholder="I'm Looking for a pet that’s great with..."
-            />
-          </div>
-          <div className="PetMatches__form--container__mobile">
-            <Button
-              handleButtonClick={handleSearchNewSearchRequest}
-              isDisabledState={isDisabled}
-              notDisabledText={"Meet Your Pet Pall"}
-              isDisabledText={"Finding Pet Pall..."}
-            />
-          </div>
-          <div className="PetMatches__form--container__tablet">
-            <Button
-              handleButtonClick={handleSearchNewSearchRequest}
-              isDisabledState={isDisabled}
-              notDisabledText={"Meet Your Pet Pall"}
-              isDisabledText={"Finding Pet Pall..."}
-              width={200}
-            />
-          </div>
-        </div>
-      </section>
-    
+          <section className="PetMatches__form--container">
+            <h1>Want to be more specific </h1>
+            <div className="PetMatches__form">
+              <div className="PetMatches__form__input--container">
+                <SearchInput
+                  isError={error}
+                  setIsError={setError}
+                  setValue={setSearchInput}
+                  placeholder="I'm Looking for a pet that’s great with..."
+                />
+              </div>
+              <div className="PetMatches__form--container__mobile">
+                <Button
+                  handleButtonClick={handleSearchNewSearchRequest}
+                  isDisabledState={isDisabled}
+                  notDisabledText={"Meet Your Pet Pall"}
+                  isDisabledText={"Finding Pet Pall..."}
+                />
+              </div>
+              <div className="PetMatches__form--container__tablet">
+                <Button
+                  handleButtonClick={handleSearchNewSearchRequest}
+                  isDisabledState={isDisabled}
+                  notDisabledText={"Meet Your Pet Pall"}
+                  isDisabledText={"Finding Pet Pall..."}
+                  width={200}
+                />
+              </div>
+            </div>
+          </section>
+
           <section className="PetMatches__petsCard--container">
             {currentPetItems.map((pet) => {
               return (
@@ -162,14 +147,15 @@ const PetMatchesPage = () => {
         </section>
       )}
 
-      {/* Display Selected Pet Details */}
+    {/* Conditionally render PetDetailsDrawer only when isOpen is true */}
+    {isOpen && (
       <PetDetailsDrawer
         isOpen={isOpen}
         onClose={onClose}
         btnRef={btnRef}
-        petDetails={selectedPetDetails}
-        isLoading={isLoadingPetDetails}
+        petID={selectedPetID}
       />
+    )}
     </section>
   );
 };

@@ -128,16 +128,27 @@ const ProfilePage = () => {
                 </AccordionButton>
               </h2>
               <AccordionPanel pb={4}>
-                {adoptionRequests
-                  .filter((eachRequest) => {
-                    return (
-                      eachRequest.orderStatus === "Pending" ||
-                      eachRequest.orderStatus === "Approved"
-                    );
-                  })
-                  .map((request) => {
-                    return <RequestCard key={request.id} request={request} />;
-                  })}
+                {adoptionRequests.filter((eachRequest) => {
+                  return (
+                    eachRequest.orderStatus === "Pending" ||
+                    eachRequest.orderStatus === "Approved"
+                  );
+                }).length > 0 ? (
+                  adoptionRequests
+                    .filter((eachRequest) => {
+                      return (
+                        eachRequest.orderStatus === "Pending" ||
+                        eachRequest.orderStatus === "Approved"
+                      );
+                    })
+                    .map((request) => (
+                      <RequestCard key={request.id} request={request} />
+                    ))
+                ) : (
+                  <Box textAlign="center" color="gray.500">
+                    No active requests yet.
+                  </Box>
+                )}
               </AccordionPanel>
             </AccordionItem>
 
@@ -151,16 +162,27 @@ const ProfilePage = () => {
                 </AccordionButton>
               </h2>
               <AccordionPanel pb={4}>
-                {adoptionRequests
-                  .filter((eachRequest) => {
-                    return (
-                      eachRequest.orderStatus === "Canceled" ||
-                      eachRequest.orderStatus === "Completed"
-                    );
-                  })
-                  .map((request) => {
-                    return <RequestCard key={request.id} request={request} />;
-                  })}
+                {adoptionRequests.filter((eachRequest) => {
+                  return (
+                    eachRequest.orderStatus === "Canceled" ||
+                    eachRequest.orderStatus === "Completed"
+                  );
+                }).length > 0 ? (
+                  adoptionRequests
+                    .filter((eachRequest) => {
+                      return (
+                        eachRequest.orderStatus === "Canceled" ||
+                        eachRequest.orderStatus === "Completed"
+                      );
+                    })
+                    .map((request) => (
+                      <RequestCard key={request.id} request={request} />
+                    ))
+                ) : (
+                  <Box textAlign="center" color="gray.500">
+                    No inactive requests yet.
+                  </Box>
+                )}
               </AccordionPanel>
             </AccordionItem>
           </Accordion>
