@@ -11,3 +11,10 @@
     @content;
   }
 }
+
+// xxl
+@mixin xxlDesktop {
+  @media (min-width: 1956px) {
+    @content;
+  }
+}

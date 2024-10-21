@@ -1,0 +1,33 @@
+.searchInput__container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 1rem;
+  padding: 0 1rem;
+  background-color: #eef2f5;
+}
+
+.searchInput__container input[type="text"] {
+  padding: 0.7rem;
+  font-size: 16px;
+  // widt  h: 100%;
+  margin-right: 10px;
+  background-color: #eef2f5;
+  border: none;
+  &:focus {
+    outline: none;
+  }
+  &::placeholder {
+    color: #666;
+  }
+}
+
+.error {
+  color: red;
+  font-size: small;
+  padding-top: 0.2rem;
+  &__border {
+    border: 1px solid red;
+  }
+}

@@ -6,6 +6,7 @@ body {
   color: $color-primary-black;
   line-height: 1.5;
   margin: 0;
+  height: 100%;
   padding: 0;
 }
 
@@ -20,7 +21,6 @@ h6 {
 }
 
 p {
-  font-weight: $font-weight-bold;
   margin: 0;
   padding: 0;
 }
