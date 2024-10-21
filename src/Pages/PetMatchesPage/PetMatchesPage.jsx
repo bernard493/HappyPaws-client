@@ -8,7 +8,6 @@ import Button from "../../Components/Button/Button";
 import PetCard from "../../Components/PetCard/PetCard";
 import Paginate from "../../Components/ReactPaginate/ReactPaginate";
 import { generatePetRecommendations } from "../../API/Search__Api";
-import { getPetDetailsById } from "../../API/Pets__Api";
 import LottieSpinner from "../../Components/LottieSpinner/LottieSpinner";
 import loadingLottie from "../../assets/lottie/Animation - 1729377053863.json";
 import TextAnimation from "../../Components/TextAnimation/TextAnimation";
