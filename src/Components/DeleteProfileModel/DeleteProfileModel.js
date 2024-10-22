@@ -15,10 +15,13 @@ import { MdDelete } from "react-icons/md";
 import { DeleteUserProfile } from "../../API/User__Api";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../CustomHooks/AuthProvider ";
+import { setUserGlobalState } from "../../store/globalStateSlice";
+import { useDispatch } from "react-redux";
 
 const DeleteProfileModel = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   const { isOpen, onOpen, onClose } = useDisclosure();
   const finalRef = React.useRef(null);
 
@@ -27,6 +30,7 @@ const DeleteProfileModel = () => {
       const { status } = await DeleteUserProfile();
       if (status === 200) {
         logout();
+        dispatch(setUserGlobalState({}));
         navigate("/");
       } else if (status === 401) {
         navigate("/auth/login");

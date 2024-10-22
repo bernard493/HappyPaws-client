@@ -17,7 +17,7 @@ import EditProfileDrawer from "../../Components/EditProfileDrawer/EditProfileDra
 import RequestCard from "../../Components/RequestCard/RequestCard";
 import { GetAllAdoptionRequest } from "../../API/Adoption-Request__Apis";
 import { useSelector, useDispatch } from "react-redux";
-import { UpdateUserProfile } from "../../API/User__Api";
+import { GetUserProfile, UpdateUserProfile } from "../../API/User__Api";
 import { setUserGlobalState } from "../../store/globalStateSlice";
 import DeleteProfileModel from "../../Components/DeleteProfileModel/DeleteProfileModel";
 import { useNavigate } from "react-router-dom";
@@ -34,6 +34,24 @@ const ProfilePage = () => {
   // Handle Drawer
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
+
+  useEffect(() => {
+    if (Object.keys(user || {}).length === 0) {
+      const fetchUserData = async () => {
+        try {
+          const { status, data } = await GetUserProfile();
+          console.log("data", data);
+
+          if (status === 200) {
+            dispatch(setUserGlobalState(data));
+          }
+        } catch (error) {
+          console.error("Failed to fetch user profile:", error); // Log errors for debugging
+        }
+      };
+      fetchUserData();
+    }
+  }, [user, dispatch]);
 
   useEffect(() => {
     const getAllUserAdoptionRequest = async () => {

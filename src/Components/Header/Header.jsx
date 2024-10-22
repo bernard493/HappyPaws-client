@@ -13,12 +13,16 @@ import {
 import { MdCall } from "react-icons/md";
 import { useAuth } from "../../CustomHooks/AuthProvider ";
 import { RiMenu5Line } from "react-icons/ri";
+import { useDispatch } from "react-redux";
+import { setUserGlobalState } from "../../store/globalStateSlice";
 const Header = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { logout, isAuthenticated } = useAuth();
 
   const handleSignOut = () => {
     logout();
+    dispatch(setUserGlobalState({}));
     navigate("/");
   };
 
@@ -50,7 +54,7 @@ const Header = () => {
                 as={IconButton}
                 aria-label="Options"
                 // variant="outline"
-                icon={<RiMenu5Line color="black"/>}
+                icon={<RiMenu5Line color="black" />}
               />
 
               <MenuList>
