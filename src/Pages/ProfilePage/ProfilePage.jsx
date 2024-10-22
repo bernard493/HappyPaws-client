@@ -11,6 +11,10 @@ import {
   Box,
   useDisclosure,
   useToast,
+  Stack,
+  Skeleton,
+  SkeletonCircle,
+  SkeletonText,
 } from "@chakra-ui/react";
 import { CiLocationOn } from "react-icons/ci";
 import EditProfileDrawer from "../../Components/EditProfileDrawer/EditProfileDrawer";
@@ -30,7 +34,8 @@ const ProfilePage = () => {
   const [isDisabled] = useState(false);
   const [adoptionRequests, setAdoptionRequests] = useState([]);
   const [isUpdatingUser, setIsUpdatingUser] = useState(false);
-
+  const [loadingUserProfileDetails, setLoadingUserProfileDetails] =
+    useState(false);
   // Handle Drawer
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
@@ -39,6 +44,7 @@ const ProfilePage = () => {
     if (Object.keys(user || {}).length === 0) {
       const fetchUserData = async () => {
         try {
+          setLoadingUserProfileDetails(true);
           const { status, data } = await GetUserProfile();
           console.log("data", data);
 
@@ -47,6 +53,8 @@ const ProfilePage = () => {
           }
         } catch (error) {
           console.error("Failed to fetch user profile:", error); // Log errors for debugging
+        } finally {
+          setLoadingUserProfileDetails(false);
         }
       };
       fetchUserData();
@@ -108,18 +116,35 @@ const ProfilePage = () => {
       <section className="profile-page">
         <div className="profile-page__details">
           <div className="profile-page__details-information">
-            <Avatar size="lg" name={user.username} src={user.avatar} />
-            <div className="profile-page__details-name">
-              <h2 className="profile-page__details-name-title">
-                {user.username}
-              </h2>
-              <p className="profile-page__details-name-title">{user.email}</p>
-              <div className="profile-page__details-location__container">
-                <CiLocationOn />
-                <p>location</p>
-              </div>
-            </div>
+            {!loadingUserProfileDetails ? (
+              <>
+                <Avatar size="lg" name={user.username} src={user.avatar} />
+                <div className="profile-page__details-name">
+                  <h2 className="profile-page__details-name-title">
+                    {user.username}
+                  </h2>
+                  <p className="profile-page__details-name-title">
+                    {user.email}
+                  </p>
+                  <div className="profile-page__details-location__container">
+                    <CiLocationOn />
+                    <p>location</p>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <Box padding="6" bg="white">
+                <SkeletonCircle size="10" />
+                <SkeletonText
+                  mt="4"
+                  noOfLines={4}
+                  spacing="4"
+                  skeletonHeight="2"
+                />
+              </Box>
+            )}
           </div>
+
           <div className="profile-page__CTA--container">
             <Button
               handleButtonClick={handleEditProfile}
