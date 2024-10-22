@@ -15,7 +15,6 @@ import {
   Box,
   Text,
   Badge,
-  Skeleton,
   SkeletonCircle,
   SkeletonText,
   Stack,

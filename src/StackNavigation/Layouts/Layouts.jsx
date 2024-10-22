@@ -19,7 +19,7 @@ const Layouts = () => {
       }
     };
     fetchUserData();
-  }, [ ]);
+  }, [dispatch]);
 
   return (
     <Router>

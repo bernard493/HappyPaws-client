@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import "./PetMatchesPage.scss";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useDisclosure } from "@chakra-ui/react";
+import { useDisclosure, useToast } from "@chakra-ui/react";
 import PetDetailsDrawer from "../../Components/PetDetailsDrawer/PetDetailsDrawer";
 import SearchInput from "../../Components/SearchInput/SearchInput";
 import Button from "../../Components/Button/Button";
@@ -15,7 +15,8 @@ import TextAnimation from "../../Components/TextAnimation/TextAnimation";
 const PetMatchesPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const btnRef = React.useRef();
+  const btnRef = useRef();
+  const toast = useToast();
   const queryParams = new URLSearchParams(location.search);
   const userSearchInput = decodeURIComponent(queryParams.get("search"));
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -40,30 +41,37 @@ const PetMatchesPage = () => {
     setItemOffset(newOffset);
   };
   // // API Call to get pet details
-  const getPetsRecommendations = async (searchValue) => {
-    try {
-      setIsLoadingPetRecommendations(true);
-      const { status, data } = await generatePetRecommendations(searchValue);
-      console.log('data',data);
-      if (status === 200) {
-        setAllPets(data.results);
-      } else if (status === 401) {
-        navigate("/auth/login");
+  const getPetsRecommendations = useCallback(
+    async (searchValue) => {
+      try {
+        setIsLoadingPetRecommendations(true);
+        const { status, data } = await generatePetRecommendations(searchValue);
+        if (status === 200) {
+          setAllPets(data.results);
+        } else if (status === 401) {
+          navigate("/auth/login");
+        }
+      } catch (error) {
+        toast({
+          position: "top-right",
+          title: "Failed to get Recommendations Try again later ",
+          status: "info",
+          isClosable: true,
+        });
+      } finally {
+        setIsLoadingPetRecommendations(false);
       }
-    } catch (error) {
-      console.log("Error fetching pet Recommendation");
-    } finally {
-      setIsLoadingPetRecommendations(false);
-    }
-  };
+    },
+    [navigate, toast]
+  );
 
   useEffect(() => {
     getPetsRecommendations(userSearchInput);
-  }, [userSearchInput]);
+  }, [userSearchInput, getPetsRecommendations]);
 
   //   get get selected pet and open drawer
   const handleOpenPetDetailsDrawer = (petId) => {
-    setSelectedPetID((prev) => petId);
+    setSelectedPetID(petId);
     onOpen();
   };
 
@@ -146,15 +154,15 @@ const PetMatchesPage = () => {
         </section>
       )}
 
-    {/* Conditionally render PetDetailsDrawer only when isOpen is true */}
-    {isOpen && (
-      <PetDetailsDrawer
-        isOpen={isOpen}
-        onClose={onClose}
-        btnRef={btnRef}
-        petID={selectedPetID}
-      />
-    )}
+      {/* Conditionally render PetDetailsDrawer only when isOpen is true */}
+      {isOpen && (
+        <PetDetailsDrawer
+          isOpen={isOpen}
+          onClose={onClose}
+          btnRef={btnRef}
+          petID={selectedPetID}
+        />
+      )}
     </section>
   );
 };
