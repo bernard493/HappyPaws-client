@@ -27,6 +27,8 @@ const LoginPage = () => {
   const toast = useToast();
   const redirectToAfterAuth = location.state?.from || "/";
 
+  console.log('redirectToAfterAuth',redirectToAfterAuth);
+
   const validateEmail = () => {
     if (!email) {
       setEmailError("Email is required");
@@ -73,7 +75,7 @@ const LoginPage = () => {
 
           // Navigate back to original page (or home if not available)
           const redirectTo = sessionStorage.getItem("redirectTo");
-          navigate(redirectTo || "/");
+          navigate(redirectTo || redirectToAfterAuth);
           sessionStorage.removeItem("redirectTo"); // Optionally remove the item once used
         } else if (status === 401) {
           const { message } = data;

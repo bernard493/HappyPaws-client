@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 
 const ApiManager = () => {
   const axiosInstance = axios.create({
-    baseURL: "https://happypaws-server-d1z9.onrender.com/api/v1", //change this to your api url
+    baseURL: "http://localhost:5001/api/v1",
     responseType: "json",
     withCredentials: true,
   });
