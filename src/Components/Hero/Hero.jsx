@@ -12,9 +12,9 @@ const Hero = () => {
     <div className="Hero">
       <section className="Hero__text--container">
         <h1 className="Hero__title">I am Pawsist, Your AI Assistance</h1>
-        {/* <TextAnimation text={heroText} /> */}
+        <TextAnimation text={heroText} />
         <div className="Hero__input__section--container">
-          <SearchInput placeholder="How can PawSist help ypu todayF" />
+          <SearchInput placeholder="How can PawSist help you today?" />
         </div>
       </section>
       <section className="Hero__blog--container">

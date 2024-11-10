@@ -14,10 +14,10 @@ const Button = ({
       className="Btn"
       disabled={isDisabledState}
       style={{
-        width:  width || "100%",
+        width: width || "100%",
       }}
     >
-      {!isDisabledState ? notDisabledText : isDisabledText}
+      {notDisabledText}
     </button>
   );
 };
