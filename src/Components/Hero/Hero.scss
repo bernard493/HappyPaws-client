@@ -8,9 +8,9 @@
     align-items: center;
     flex-direction: column;
     text-align: center;
-    padding: 5rem 2rem;
+    padding: 5rem 1rem;
     @include tablet {
-    padding: 13rem 2rem;
+    padding: 10rem 1rem;
     }
   }
   &__title {
@@ -42,6 +42,7 @@
     text-align: center;
     gap: 1rem;
     margin-top: 2rem;
+    width: 100%;
 
     @include tablet {
       flex-direction: row;
