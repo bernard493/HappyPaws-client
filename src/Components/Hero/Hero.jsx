@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./Hero.scss";
 import SearchInput from "../SearchInput/SearchInput";
 import { heroTexts } from "../../const/constant";
-import Button from "../Button/Button";
 import TextAnimation from "../TextAnimation/TextAnimation";
 
 const Hero = () => {
