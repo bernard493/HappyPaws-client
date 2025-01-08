@@ -39,13 +39,12 @@ const SearchInput = ({ placeholder }) => {
 
   const handleSearchNavigation = () => {
     // navigate to pets dashboard with searchInput
-    if (!searchInput && !searchImageUrl) return setError(true);
+    if (!searchInput) return setError(true);
     setIsDisabled(true);
     const encodedSearchInput = encodeURIComponent(searchInput);
-    const encodedSearchImageUrl = encodeURIComponent(searchImageUrl);
 
     navigate(
-      `/pet-matches?search=${encodedSearchInput}&image=${encodedSearchImageUrl}`
+      `/pet-matches?search=${encodedSearchInput}`
     );
 
     // Optionally, delay re-enabling the button

@@ -4,7 +4,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useDisclosure, useToast } from "@chakra-ui/react";
 import PetDetailsDrawer from "../../Components/PetDetailsDrawer/PetDetailsDrawer";
 import SearchInput from "../../Components/SearchInput/SearchInput";
-import Button from "../../Components/Button/Button";
 import PetCard from "../../Components/PetCard/PetCard";
 import Paginate from "../../Components/ReactPaginate/ReactPaginate";
 import { generatePetRecommendations } from "../../API/Search__Api";
@@ -19,13 +18,9 @@ const PetMatchesPage = () => {
   const toast = useToast();
   const queryParams = new URLSearchParams(location.search);
   const userSearchInput = decodeURIComponent(queryParams.get("search"));
-  const userImageUrl = decodeURIComponent(queryParams.get("image"));
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [searchInput, setSearchInput] = useState("");
-  const [isDisabled] = useState(false);
   const [allPets, setAllPets] = useState([]);
   const [itemsPerPage] = useState(20);
-  const [error, setError] = useState(false);
   const [itemOffset, setItemOffset] = useState(0);
   const [selectedPetID, setSelectedPetID] = useState("");
   const [isLoadingPetRecommendations, setIsLoadingPetRecommendations] =
@@ -67,8 +62,8 @@ const PetMatchesPage = () => {
   );
 
   useEffect(() => {
-    getPetsRecommendations({ userSearchInput, userImageUrl });
-  }, [userSearchInput, userImageUrl, getPetsRecommendations]);
+    getPetsRecommendations({ userSearchInput });
+  }, [userSearchInput, getPetsRecommendations]);
 
   //   get get selected pet and open drawer
   const handleOpenPetDetailsDrawer = (petId) => {
@@ -76,11 +71,7 @@ const PetMatchesPage = () => {
     onOpen();
   };
 
-  const handleSearchNewSearchRequest = () => {
-    if (!searchInput) return setError(true);
-    // Make Api call with new search input
-    getPetsRecommendations(searchInput);
-  };
+  
 
   return (
     <section className="PetMatches">
@@ -90,29 +81,7 @@ const PetMatchesPage = () => {
             <h1>Want to be more specific </h1>
             <div className="PetMatches__form">
               <div className="PetMatches__form__input--container">
-                <SearchInput
-                  isError={error}
-                  setIsError={setError}
-                  setValue={setSearchInput}
-                  placeholder="I'm Looking for a pet that’s great with..."
-                />
-              </div>
-              <div className="PetMatches__form--container__mobile">
-                <Button
-                  handleButtonClick={handleSearchNewSearchRequest}
-                  isDisabledState={isDisabled}
-                  notDisabledText={"Meet Your Pet Pall"}
-                  isDisabledText={"Finding Pet Pall..."}
-                />
-              </div>
-              <div className="PetMatches__form--container__tablet">
-                <Button
-                  handleButtonClick={handleSearchNewSearchRequest}
-                  isDisabledState={isDisabled}
-                  notDisabledText={"Meet Your Pet Pall"}
-                  isDisabledText={"Finding Pet Pall..."}
-                  width={200}
-                />
+                <SearchInput placeholder=" Enter details like breed, age, size, or any specific preferences you have." />
               </div>
             </div>
           </section>

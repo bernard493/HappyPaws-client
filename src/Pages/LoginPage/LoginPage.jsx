@@ -27,7 +27,6 @@ const LoginPage = () => {
   const toast = useToast();
   const redirectToAfterAuth = location.state?.from || "/";
 
-  console.log('redirectToAfterAuth',redirectToAfterAuth);
 
   const validateEmail = () => {
     if (!email) {
