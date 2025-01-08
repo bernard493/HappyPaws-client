@@ -14,8 +14,8 @@ const AppStack = () => {
       <Route path="/" element={<LandingPage />} />
       <Route path="/auth/login" element={<LoginPage />} />
       <Route path="/auth/create-account" element={<SignupPage />} />
-      <Route element={<PrivateRoutes />}>
         <Route path="/pet-matches" element={<PetMatchesPage />} />
+      <Route element={<PrivateRoutes />}>
         <Route
           path="/adoption-request/:petName"
           element={<AdoptionRequestPage />}

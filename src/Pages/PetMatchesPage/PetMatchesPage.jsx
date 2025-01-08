@@ -62,7 +62,7 @@ const PetMatchesPage = () => {
   );
 
   useEffect(() => {
-    getPetsRecommendations({ userSearchInput });
+    getPetsRecommendations(userSearchInput);
   }, [userSearchInput, getPetsRecommendations]);
 
   //   get get selected pet and open drawer
@@ -81,7 +81,7 @@ const PetMatchesPage = () => {
             <h1>Want to be more specific </h1>
             <div className="PetMatches__form">
               <div className="PetMatches__form__input--container">
-                <SearchInput placeholder=" Enter details like breed, age, size, or any specific preferences you have." />
+                <SearchInput placeholder="Enter details like breed, age, size, or any specific preferences you have." />
               </div>
             </div>
           </section>
