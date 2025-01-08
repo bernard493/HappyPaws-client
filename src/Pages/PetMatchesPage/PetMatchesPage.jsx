@@ -19,6 +19,7 @@ const PetMatchesPage = () => {
   const toast = useToast();
   const queryParams = new URLSearchParams(location.search);
   const userSearchInput = decodeURIComponent(queryParams.get("search"));
+  const userImageUrl = decodeURIComponent(queryParams.get("image"));
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [searchInput, setSearchInput] = useState("");
   const [isDisabled] = useState(false);
@@ -66,8 +67,8 @@ const PetMatchesPage = () => {
   );
 
   useEffect(() => {
-    getPetsRecommendations(userSearchInput);
-  }, [userSearchInput, getPetsRecommendations]);
+    getPetsRecommendations({ userSearchInput, userImageUrl });
+  }, [userSearchInput, userImageUrl, getPetsRecommendations]);
 
   //   get get selected pet and open drawer
   const handleOpenPetDetailsDrawer = (petId) => {
