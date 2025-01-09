@@ -57,6 +57,8 @@
 **Login/Sign Up** : Pages for users to create an account or log into their existing account.
 **Admin Panel (Optional)** : A backend page for app administrators to manage users, review platform activity, and perform maintenance tasks.
 
+## Live Demo 
+**Link** : https://happypawsai.netlify.app/
 ## Data Model
 
 ### Data Entities and Relationships
